@@ -17,6 +17,7 @@ class ChildrenList extends StatefulWidget {
 
 class _ChildrenListState extends State<ChildrenList> {
   String _amount = "",_paymentMode = "",_remarks = "";
+  
   FirebaseMessaging fcm = FirebaseMessaging();
 
   @override
@@ -44,13 +45,21 @@ class _ChildrenListState extends State<ChildrenList> {
   }
 
   Widget buildDonors(BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+    
 
     if (snapshot.hasData) {
         return ListView.builder(
             itemCount: snapshot.data.documents.length,
             itemBuilder: (context, index) {
                 DocumentSnapshot user = snapshot.data.documents[index];
+                // int _userAmount;
+                // // Firestore.instance.collection("DonorCurrentPayment").document(user.documentID).get().then((document){
+                              
+                // //   setState(() {
 
+
+                // //   });
+                // // });
                 return GestureDetector(
                     onTap: ()
                     {
@@ -138,14 +147,19 @@ class _ChildrenListState extends State<ChildrenList> {
                 new FlatButton(
                   child: new Text('SUBMIT'),
                   onPressed: () {
-                    int _tempAmount = user["Amount"]+int.parse(_amount);
+                    int _tempAmount = user["Amount"] +int.parse(_amount);
                     print(user.documentID);
                     Firestore.instance.collection("Users").document(user["Father Name"]).collection("children").document(user.documentID).updateData({
                       "Amount":_tempAmount,
                     });
+                    
                     Firestore.instance.collection("Users2").document(user.documentID).updateData({
                       "Amount":_tempAmount,
                     });
+                    
+                    // Firestore.instance.collection("DonorCurrentPayment").document(user.documentID).updateData({
+                    //   "Amount":_tempAmount,
+                    // });
                     Firestore.instance.collection("DPayment").document(user.documentID).setData({
                       "1":"1",
                     });
@@ -183,16 +197,17 @@ class _ChildrenListState extends State<ChildrenList> {
                 ),
               ),
               child: ListTile(
-                leading: CircleAvatar(
-                  child: Text(user["Full Name"].toString().substring(0,1),style: TextStyle(fontWeight: FontWeight.bold),),
-                  // backgroundImage: AssetImage("assets/images/islamabad.jpg"),
-                  radius: 25,
-                ),
+                // leading: CircleAvatar(
+                //   child: Text(user["Full Name"].toString().substring(0,1),style: TextStyle(fontWeight: FontWeight.bold),),
+                //   // backgroundImage: AssetImage("assets/images/islamabad.jpg"),
+                //   radius: 25,
+                // ),
                 // title: Text(transaction['name']),
-                title: Text(user["Full Name"]),
-                subtitle: Text(user["Phone"]),
+                title: Text(user["Full Name"],style: TextStyle(fontSize: 20.0),),
+                subtitle: Text(user["Email"]),
                 trailing: Text(
-                  user["Amount"].toString(),
+                  // user["Amount"].toString(),
+                  "Phone: "+user["Phone"],
                   style: TextStyle(
                     color: Colors.green,
                     fontWeight: FontWeight.bold,

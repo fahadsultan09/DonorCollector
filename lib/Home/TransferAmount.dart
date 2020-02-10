@@ -1,7 +1,6 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collector/Home/HomePage.dart';
-import 'package:collector/Reciever/AddReciever.dart';
 import 'package:collector/Reciever/utils.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +20,7 @@ class transferAmountState extends State<transferAmount> {
   @override
   void initState() {
     amount = widget._recieveruser["Amount"];
-    print(amount);
+    
       super.initState();
   }
   @override
@@ -60,7 +59,7 @@ class transferAmountState extends State<transferAmount> {
               ),
         padding: EdgeInsets.all(5),
         child: FutureBuilder(
-          future: Firestore.instance.collection("Users2").where('Amount',isGreaterThanOrEqualTo: amount).getDocuments(),
+          future: Firestore.instance.collection("Users2").getDocuments(),
           // initialData: InitialData,
           builder: buildReciever,
         ),
@@ -108,6 +107,7 @@ class transferAmountState extends State<transferAmount> {
                   // title: Text(transaction['name']),
                   title: Text(
                       _donorUser["Full Name"],
+                      
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w800,
@@ -119,11 +119,13 @@ class transferAmountState extends State<transferAmount> {
                   {
                       int inputValue = 0;
                       
+
+                      
                     showDialog(
                   // child: Container(),
                     context: context,
                     builder: (context) {
-  return SimpleDialog(
+                        return SimpleDialog(
 
                         // backgroundColor: Colors.black12,
                         title: Text('Amount Payment'),
@@ -171,6 +173,10 @@ class transferAmountState extends State<transferAmount> {
                   onPressed: () {
 
                     setState(() {
+
+                    if(inputValue<=_donorUser["Amount"] && inputValue<=amount){
+
+
                     amount = amount - inputValue;
                     int temp_amount = _donorUser["Amount"] - inputValue;
                     Firestore.instance.collection("Users2").document(_donorUser.documentID).updateData({
@@ -186,16 +192,23 @@ class transferAmountState extends State<transferAmount> {
                       "Name:":widget._recieveruser["FullName"],
                       "PaymentDate":DateTime.now().toString().substring(0,10),
                     });
-                            
 
-                    });
+                    Navigator.of(context).pop();
 
-                    if(amount<0){
+                    }
+                    else{
+                      Navigator.of(context).pop();
+                    }  
+                    if(amount<=0){
                       
                       Firestore.instance.collection("Pipeline").document(widget._recieveruser.documentID).delete();
                        Navigator.of(context).push(MaterialPageRoute(builder: (context) =>Home())); 
-                    }              
-                    Navigator.of(context).pop();
+                    }
+
+                    });
+
+                                  
+                    // Navigator.of(context).pop();
                     
                   },
                 )
@@ -204,7 +217,7 @@ class transferAmountState extends State<transferAmount> {
           );
         });
                     
-                  }, child: Text("PAY",style: TextStyle(fontSize: 30),),),
+                  }, child: Text("PAY",style: TextStyle(fontSize: 20),),),
          
                 ),
             ),

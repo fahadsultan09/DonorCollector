@@ -5,6 +5,7 @@ import 'package:collector/Home/TransferAmount.dart';
 import 'package:collector/Reciever/Reciever.dart';
 import 'package:collector/Reciever/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -13,7 +14,8 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   
-  int pipelineSize = 0;
+  // int pipelineSize = 0;
+  List<DocumentSnapshot> documents;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -114,146 +116,165 @@ subtitle: Text("SIGDJNADJ"),
         actions: <Widget>[
           new Stack(
             children: <Widget>[
-              new IconButton(icon: Icon(Icons.notifications),iconSize: 30.0, onPressed: () {
+              new IconButton(icon: Icon(Icons.refresh),iconSize: 30.0, onPressed: () {
                 
-              }),
-              new Positioned(
-                right: 11,
-                top: 11,
-                child: new Container(
-                  padding: EdgeInsets.all(2),
-                  decoration: new BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  constraints: BoxConstraints(
-                    minWidth: 14,
-                    minHeight: 14,
-                  ),
-                  child: Text(
-                    pipelineSize.toString(),
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 8,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ) ,
-              ],
-      ),
-        ],
-      ),
-      body: Container(
-         decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              colors: [Colors.black, color1])
-              
-              ),
-        padding: EdgeInsets.all(5),
-        child: FutureBuilder(
-          future: Firestore.instance.collection("Pipeline").getDocuments(),
-          // initialData: InitialData,
-          builder: buildPipeline,
-        ),
-      ),
-    );
-  }
-  Widget buildPipeline(BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-
-    if (snapshot.hasData) {
-        return ListView.builder(
-            itemCount: snapshot.data.documents.length,
-            itemBuilder: (context, index) {
-                DocumentSnapshot user = snapshot.data.documents[index];
-
-                return GestureDetector(
-                    onTap: (){
-
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>transferAmount(user)));
-                    },
-              child: Container(
-                // padding: EdgeInsets.all(19),
-                decoration: BoxDecoration(
-            // gradient: LinearGradient(
-            //   begin: Alignment.topRight,
-            //   end: Alignment.bottomLeft,
-            //   colors: [Colors.white70, Colors.blue[900]]),
-              
-              
-                  borderRadius: BorderRadius.circular(12.0),
-                ),
-                // height: 200,
-                // color: Colors.amber,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Card(
-                    
-            semanticContainer: true,
-          
-                  elevation: 4,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(5),
-                    ),
-                  ),
-                  child: ListTile(
-                    
-                    dense: true,
-                    leading: CircleAvatar(
-                      child: Icon(Icons.person),
-                      radius: 25,
-                    ),
-                    // title: Text(transaction['name']),
-                    title: Text(
-                        user["FullName"],
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w800,
+                getPipeline();
+                              }),
+                              // new Positioned(
+                              //   right: 11,
+                              //   top: 11,
+                              //   child: new Container(
+                              //     padding: EdgeInsets.all(2),
+                              //     decoration: new BoxDecoration(
+                              //       color: Colors.red,
+                              //       borderRadius: BorderRadius.circular(6),
+                              //     ),
+                              //     constraints: BoxConstraints(
+                              //       minWidth: 14,
+                              //       minHeight: 14,
+                              //     ),
+                              //     child: Text(
+                              //       pipelineSize.toString(),
+                              //       style: TextStyle(
+                              //         color: Colors.white,
+                              //         fontSize: 8,
+                              //       ),
+                              //       textAlign: TextAlign.center,
+                              //     ),
+                              //   ),
+                              // ) ,
+                              ],
+                      ),
+                        ],
+                      ),
+                      body: Container(
+                        
+                         decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topRight,
+                              end: Alignment.bottomLeft,
+                              colors: [Colors.black, color1])
+                              
+                              ),
+                        padding: EdgeInsets.all(5),
+                        child: FutureBuilder(
+                          future: Firestore.instance.collection("Pipeline").getDocuments(),
+                          // initialData: InitialData,
+                          builder: buildPipeline,
                         ),
-                        textAlign: TextAlign.left,
                       ),
-                    subtitle: Text(user["AccountNumber"]),
-                    trailing: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text(
+                    );
+                  }
+                  Widget buildPipeline(BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                
+                    if (snapshot.hasData) {
+                        return ListView.builder(
+                            itemCount: snapshot.data.documents.length,
+                            itemBuilder: (context, index) {
+                                DocumentSnapshot user = snapshot.data.documents[index];
+                
+                                return GestureDetector(
+                                    onTap: (){
+                
+                                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>transferAmount(user)));
+                                    },
+                              child: Container(
+                                // padding: EdgeInsets.all(19),
+                                decoration: BoxDecoration(
+                            // gradient: LinearGradient(
+                            //   begin: Alignment.topRight,
+                            //   end: Alignment.bottomLeft,
+                            //   colors: [Colors.white70, Colors.blue[900]]),
+                              
+                              
+                                  borderRadius: BorderRadius.circular(12.0),
+                                ),
+                                // height: 200,
+                                // color: Colors.amber,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Card(
+                                    
+                            semanticContainer: true,
                           
-                      "Rs ."+user["Amount"].toString(),
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.green,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      "Due Date "+user["DueDate"],
-                      style: TextStyle(
-                        color: Colors.red,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                      ],
-                    )
-                  ),
-            ),
-                ),
-              ),
-                );
-            },
-        );
-    } else if (snapshot.connectionState == ConnectionState.done && !snapshot.hasData ){
-        // Handle no data
-        return Center(
-            child: Text("No Pipeline found.",style: TextStyle(color: Colors.black),),
-        );
-    } else {
-        // Still loading
-        return Center(child: CircularProgressIndicator());
-    }
-}
+                                  elevation: 4,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(5),
+                                    ),
+                                  ),
+                                  child: ListTile(
+                                    
+                                    dense: true,
+                                    // leading: CircleAvatar(
+                                    //   child: Icon(Icons.person),
+                                    //   radius: 25,
+                                    // ),
+                                    // title: Text(transaction['name']),
+                                    title: Text(
+                                        user["FullName"],
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w800,
+                                        ),
+                                        textAlign: TextAlign.left,
+                                      ),
+                                    subtitle: user["AccountNumber"]!=null?Text("A/C no. : "+user["AccountNumber"],style: TextStyle(fontSize: 10.0),):Text("A/C no. : "+"NONE",style: TextStyle(fontSize: 10.0),),
+                                    trailing: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: <Widget>[
+                                        Text(
+                                          
+                                      "Rs. "+user["Amount"].toString(),
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.green,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Text(
+                                      "Due Date "+user["DueDate"],
+                                      style: TextStyle(
+                                        fontSize: 13,
+                                        color: Colors.red,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                      ],
+                                    )
+                                  ),
+                            ),
+                                ),
+                              ),
+                                );
+                            },
+                        );
+                    } else if (snapshot.connectionState == ConnectionState.done && !snapshot.hasData ){
+                        // Handle no data
+                        return Center(
+                            child: Text("No Pipeline found.",style: TextStyle(color: Colors.black),),
+                        );
+                    } else {
+                        // Still loading
+                        return Center(child: CircularProgressIndicator());
+                    }
+                }
+                
+                  void getPipeline()async {
+
+                  final QuerySnapshot result = await Firestore.instance.collection("Reciever").getDocuments();
+                    documents = result.documents.toList();
+                    documents.forEach((row){
+                      // data.documentID.toString();
+                      Firestore.instance.collection("Pipeline").document(row.documentID).setData(row.data);
+                      // myBatch.add(data.documentID.toString());
+                    });
+
+
+                      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+                      Home()), (Route<dynamic> route) => false);
+                  }
 
 }
 
