@@ -194,7 +194,7 @@ class _AddRecieverState extends State<AddReciever> {
               GestureDetector(
                   onTap: validateAndSubmit,
                   child:  Container(
-                      height: 40.0,
+                      height: 60.0,
                       child: Material(
                         borderRadius: BorderRadius.circular(20.0),
                         shadowColor: Colors.greenAccent,

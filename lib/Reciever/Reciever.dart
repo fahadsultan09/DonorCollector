@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 class Reciever extends StatefulWidget {
   Reciever() : super();
  
-  final String title = "Recievers";
+  final String title = "My Recievers";
  
   @override
   RecieverState createState() => RecieverState();
@@ -19,12 +19,12 @@ class RecieverState extends State<Reciever> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        
+        backgroundColor: Colors.red,
         onPressed: (){
             Navigator.push(context,MaterialPageRoute(builder: (context)=>AddReciever()));
         },
-        tooltip: 'Add',
-        child: new Icon(Icons.add),
+        tooltip: 'Add Reciever',
+        child: new Icon(Icons.add,size: 40,),
       ),
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -60,6 +60,7 @@ class RecieverState extends State<Reciever> {
                       // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>ChildrenList(user.documentID)));
                     },
               child: Container(
+                height: 90,
                 decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topRight,
@@ -91,27 +92,29 @@ class RecieverState extends State<Reciever> {
                   title: Text(
                       user["FullName"],
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 17,
                         fontWeight: FontWeight.w800,
                       ),
                       textAlign: TextAlign.left,
                     ),
                   subtitle: Text(user["Phone"]),
                   trailing: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text(
                         
                     "Rs ."+user["Amount"].toString(),
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 18,
                       color: Colors.green,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Text(
-                    "Due Date "+user["DueDate"],
+                    "Due Date:   "+user["DueDate"],
                     style: TextStyle(
+                      fontSize: 13,
                       color: Colors.red,
                       fontWeight: FontWeight.bold,
                     ),

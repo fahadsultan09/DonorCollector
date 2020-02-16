@@ -157,9 +157,7 @@ class _ChildrenListState extends State<ChildrenList> {
                       "Amount":_tempAmount,
                     });
                     
-                    // Firestore.instance.collection("DonorCurrentPayment").document(user.documentID).updateData({
-                    //   "Amount":_tempAmount,
-                    // });
+
                     Firestore.instance.collection("DPayment").document(user.documentID).setData({
                       "1":"1",
                     });
@@ -169,6 +167,15 @@ class _ChildrenListState extends State<ChildrenList> {
                         "Amount":_amount,
                         "PaymentMode":_paymentMode,
                         "Remarks":_remarks,
+                        "Month":DateTime.now().month,
+                    });
+                    Firestore.instance.collection("DonorPayment").document(user.documentID).setData({
+                        "Full Name":user["Full Name"],
+                        "DateOfPayment":DateTime.now().toString().substring(0,10),
+                        "Amount":_amount,
+                        "PaymentMode":_paymentMode,
+                        "Remarks":_remarks,
+                        "Month":DateTime.now().month,
                     });
                     Firestore.instance.collection("Payment").document(user.documentID).setData({
                         "document":user.documentID,
@@ -197,14 +204,9 @@ class _ChildrenListState extends State<ChildrenList> {
                 ),
               ),
               child: ListTile(
-                // leading: CircleAvatar(
-                //   child: Text(user["Full Name"].toString().substring(0,1),style: TextStyle(fontWeight: FontWeight.bold),),
-                //   // backgroundImage: AssetImage("assets/images/islamabad.jpg"),
-                //   radius: 25,
-                // ),
-                // title: Text(transaction['name']),
-                title: Text(user["Full Name"],style: TextStyle(fontSize: 20.0),),
-                subtitle: Text(user["Email"]),
+
+                title: Text(user["Full Name"],style: TextStyle(fontSize: 19.0),),
+                subtitle: Text(user["Email"],style: TextStyle(fontSize: 13.0),),
                 trailing: Text(
                   // user["Amount"].toString(),
                   "Phone: "+user["Phone"],

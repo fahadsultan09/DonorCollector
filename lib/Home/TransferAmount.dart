@@ -137,7 +137,7 @@ class transferAmountState extends State<transferAmount> {
                           width: MediaQuery.of(context).size.width-5,
                           
                           child: TextFormField(
-                                keyboardType: TextInputType.text,
+                                keyboardType: TextInputType.number,
                                   validator: (input) => input.isEmpty ? 'Amount Value cannot be null' : null,
                                   onChanged: (value){
                                       inputValue = int.parse(value);
@@ -187,9 +187,15 @@ class transferAmountState extends State<transferAmount> {
                     });
                     Firestore.instance.collection("MyZakat").document(_donorUser.documentID).setData({"1":1});
                     Firestore.instance.collection("MyZakat").document(_donorUser.documentID).collection("MyPayments").document().setData({
-                      "fcm":_donorUser["fcm"],
-                      "Amount":amount,
-                      "Name:":widget._recieveruser["FullName"],
+                      // "fcm":_donorUser["fcm"],
+                      "Amount":inputValue,
+                      "Name":widget._recieveruser["FullName"],
+                      "PaymentDate":DateTime.now().toString().substring(0,10),
+                    });
+                     Firestore.instance.collection("DonorZakat").document().setData({
+                      // "fcm":_donorUser["fcm"],
+                      "Amount":inputValue,
+                      "Name":widget._recieveruser["FullName"],
                       "PaymentDate":DateTime.now().toString().substring(0,10),
                     });
 

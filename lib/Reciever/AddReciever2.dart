@@ -41,13 +41,13 @@ class _AddReciever2State extends State<AddReciever2> {
      "Days":reciever.days
   });  
 
-  Firestore.instance.collection("Pipeline").document().setData({
-    "FullName":reciever.fullName,
-    "Phone":reciever.phoneNum,
-    "Amount":reciever.amount,
-     "DueDate":reciever.dueDate,
-     "AccountNumber":reciever.accountNumber,
-  });
+  // Firestore.instance.collection("Pipeline").document().setData({
+  //   "FullName":reciever.fullName,
+  //   "Phone":reciever.phoneNum,
+  //   "Amount":reciever.amount,
+  //    "DueDate":reciever.dueDate,
+  //    "AccountNumber":reciever.accountNumber,
+  // });
    
    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
     Home()), (Route<dynamic> route) => false); 
@@ -281,7 +281,7 @@ SizedBox(height: 10.0),
               GestureDetector(
                   onTap: validateAndSubmit,
                   child:  Container(
-                      height: 40.0,
+                      height: 60.0,
                       child: Material(
                         borderRadius: BorderRadius.circular(20.0),
                         shadowColor: Colors.greenAccent,
@@ -290,7 +290,7 @@ SizedBox(height: 10.0),
                      
                           child: Center(
                             child: Text(
-                              'SIGN UP',
+                              'ADD RECIEVER',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,

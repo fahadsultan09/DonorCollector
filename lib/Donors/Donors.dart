@@ -16,7 +16,7 @@ class _MyDonorsState extends State<MyDonors> {
   Widget build(BuildContext context) {
     return Scaffold(
           appBar: AppBar(backgroundColor: Colors.black,
-            title: Text("Donors"),
+            title: Text("MY DONORS"),
           ),
           body: Container(
             decoration: BoxDecoration(
@@ -46,31 +46,32 @@ class _MyDonorsState extends State<MyDonors> {
                     onTap: (){
                       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>ChildrenList(user.documentID)));
                     },
-                                  child: Card(
-              elevation: 4,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(5),
-                ),
-              ),
-              child: ListTile(
-                leading: CircleAvatar(
-                  child: Text(user.documentID.toString().substring(0,1),style: TextStyle(fontWeight: FontWeight.bold),),
+        child: Padding(
+          
+          padding: EdgeInsets.all(10),
+          child: Container(
+            
+          color: Colors.white,
 
-                  radius: 25,
-                ),
+                child: ListTile(
+                  leading: CircleAvatar(
+                    child: Text(user.documentID.toString().substring(0,1),style: TextStyle(fontWeight: FontWeight.bold),),
 
-                title: Text(user.documentID),
- 
-                trailing: Text(
-                  "231",
-                  style: TextStyle(
-                    color: Colors.green,
-                    fontWeight: FontWeight.bold,
+                    radius: 25,
                   ),
+
+                  title: Text(user.documentID),
+                trailing: Icon(Icons.person,size: 30.0,),
+                  // trailing: Text(
+                  //   "",
+                  //   style: TextStyle(
+                  //     color: Colors.green,
+                  //     fontWeight: FontWeight.bold,
+                  //   ),
+                  // ),
                 ),
               ),
-            ),
+        ),
                 );
             },
         );

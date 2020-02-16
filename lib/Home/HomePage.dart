@@ -2,8 +2,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collector/Donors/Donors.dart';
 import 'package:collector/Home/TransferAmount.dart';
+import 'package:collector/MyPayments.dart';
 import 'package:collector/Reciever/Reciever.dart';
 import 'package:collector/Reciever/utils.dart';
+import 'package:collector/ZakatPayments.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -39,22 +41,12 @@ class _HomeState extends State<Home> {
                     image: DecorationImage(image:AssetImage("assets/images/Logo.jpg"),fit: BoxFit.cover)
                   ),
                 )
-              // child: Column(
-              //   // mainAxisAlignment: MainAxisAlignment.center,
-              //   crossAxisAlignment: CrossAxisAlignment.start,
-              //   children: <Widget>[
-              //     Text('Islamic Date',style: TextStyle(color: Colors.white70,fontSize: 20.0)),
-              // // Text(_islamicDate.toString(),style: TextStyle(color: Colors.white70,fontSize: 30.0)),
-              //   ],
-              // ),
-              // decoration: BoxDecoration(
-              //   // color: Colors.blue,
-              // ),
+
             ),
             ListTile(
               // trailing: Text(),
               leading: Icon(Icons.home,color: Colors.white70,),
-              title: Text('Home',style: TextStyle(color: Colors.white70,)),
+              title: Text('HOME',style: TextStyle(color: Colors.white70,)),
               onTap: () {
                 // Update the state of the app
                 // ...
@@ -65,7 +57,7 @@ class _HomeState extends State<Home> {
             ListTile(
               // trailing: Text(),
               leading: Icon(Icons.swap_horiz,color: Colors.white70,),
-              title: Text('Donors',style: TextStyle(color: Colors.white70,)),
+              title: Text('DONORS',style: TextStyle(color: Colors.white70,)),
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MyDonors()));
               },
@@ -73,7 +65,7 @@ class _HomeState extends State<Home> {
             ListTile(
               // trailing: Text(),
               leading: Icon(Icons.notification_important,color: Colors.white70,),
-              title: Text('Reciever',style: TextStyle(color: Colors.white70,)),
+              title: Text('RECIEVERS',style: TextStyle(color: Colors.white70,)),
               onTap: () {
 
                 Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Reciever()));
@@ -81,24 +73,33 @@ class _HomeState extends State<Home> {
             ),
             ListTile(
               // trailing: Text(),
-              leading: Icon(Icons.person_pin,color: Colors.white70,),
-              title: Text('Contact',style: TextStyle(color: Colors.white70,)),
+              leading: Icon(Icons.monetization_on,color: Colors.white70,),
+              title: Text('DONOR PAYMENTS',style: TextStyle(color: Colors.white70,)),
               onTap: () {
 
-                Navigator.pop(context);
+                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MyDonorPayments()));
+              },
+            ),
+            ListTile(
+              // trailing: Text(),
+              leading: Icon(Icons.monetization_on,color: Colors.white70,),
+              title: Text('RECIEVER PAYMENTS',style: TextStyle(color: Colors.white70,)),
+              onTap: () {
+
+                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MyRecieverPayments()));
               },
             ),
             Divider(color: Colors.black87,height: 50,),
             // Expanded(child: SizedBox(height: 30.0,),),
             ListTile(
-subtitle: Text("SIGDJNADJ"),
+
               onTap: (){
                 // FirebaseAuth.instance.signOut();
                 // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>LoginPage()));
               },
               // trailing: Text(),
               leading: Icon(Icons.exit_to_app,color: Colors.white70,),
-              title: Text("Sign Out",style: TextStyle(color: Colors.white70,fontSize: 20.0)),
+              title: Text("Sign Out",style: TextStyle(color: Colors.white70,fontSize: 15.0)),
               // subtitle: Text(_islamicDate.toString(),style: TextStyle(color: Colors.white70,)),
 
               // isThreeLine: true,
@@ -116,33 +117,9 @@ subtitle: Text("SIGDJNADJ"),
         actions: <Widget>[
           new Stack(
             children: <Widget>[
-              new IconButton(icon: Icon(Icons.refresh),iconSize: 30.0, onPressed: () {
-                
-                getPipeline();
+              new IconButton(icon: Icon(Icons.archive),iconSize: 30.0, onPressed: () {
+                           getPipeline();
                               }),
-                              // new Positioned(
-                              //   right: 11,
-                              //   top: 11,
-                              //   child: new Container(
-                              //     padding: EdgeInsets.all(2),
-                              //     decoration: new BoxDecoration(
-                              //       color: Colors.red,
-                              //       borderRadius: BorderRadius.circular(6),
-                              //     ),
-                              //     constraints: BoxConstraints(
-                              //       minWidth: 14,
-                              //       minHeight: 14,
-                              //     ),
-                              //     child: Text(
-                              //       pipelineSize.toString(),
-                              //       style: TextStyle(
-                              //         color: Colors.white,
-                              //         fontSize: 8,
-                              //       ),
-                              //       textAlign: TextAlign.center,
-                              //     ),
-                              //   ),
-                              // ) ,
                               ],
                       ),
                         ],
@@ -179,6 +156,7 @@ subtitle: Text("SIGDJNADJ"),
                                       Navigator.of(context).push(MaterialPageRoute(builder: (context)=>transferAmount(user)));
                                     },
                               child: Container(
+                                height: 100.0,
                                 // padding: EdgeInsets.all(19),
                                 decoration: BoxDecoration(
                             // gradient: LinearGradient(
@@ -222,13 +200,13 @@ subtitle: Text("SIGDJNADJ"),
                                     subtitle: user["AccountNumber"]!=null?Text("A/C no. : "+user["AccountNumber"],style: TextStyle(fontSize: 10.0),):Text("A/C no. : "+"NONE",style: TextStyle(fontSize: 10.0),),
                                     trailing: Column(
                                       crossAxisAlignment: CrossAxisAlignment.end,
-                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: <Widget>[
                                         Text(
                                           
                                       "Rs. "+user["Amount"].toString(),
                                       style: TextStyle(
-                                        fontSize: 20,
+                                        fontSize: 15,
                                         color: Colors.green,
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -253,7 +231,7 @@ subtitle: Text("SIGDJNADJ"),
                     } else if (snapshot.connectionState == ConnectionState.done && !snapshot.hasData ){
                         // Handle no data
                         return Center(
-                            child: Text("No Pipeline found.",style: TextStyle(color: Colors.black),),
+                            child: Text("No Pipeline found.",style: TextStyle(color: Colors.white),),
                         );
                     } else {
                         // Still loading
