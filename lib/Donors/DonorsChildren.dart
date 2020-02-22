@@ -26,7 +26,7 @@ class _ChildrenListState extends State<ChildrenList> {
           appBar: AppBar(
             backgroundColor: Colors.black,
             centerTitle: true,
-            title: Text("ADD PAYMENTS"),
+            title: Text("ADD PAYMENTS (CHILDRENS)",style: TextStyle(fontSize: 14),),
           ),
           body: Container(
             decoration: BoxDecoration(
@@ -148,7 +148,7 @@ class _ChildrenListState extends State<ChildrenList> {
                   child: new Text('SUBMIT'),
                   onPressed: () {
                     int _tempAmount = user["Amount"] +int.parse(_amount);
-                    print(user.documentID);
+                 
                     Firestore.instance.collection("Users").document(user["Father Name"]).collection("children").document(user.documentID).updateData({
                       "Amount":_tempAmount,
                     });

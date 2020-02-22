@@ -30,7 +30,7 @@ List<String> month = [
   Widget build(BuildContext context) {
     return Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.black,title: Text("DONOR PAYMENTS"),
+            backgroundColor: Colors.black,title: Text("PAYMENTS BY DONOR"),
             ),
 
               body: Container(

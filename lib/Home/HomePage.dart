@@ -57,7 +57,7 @@ class _HomeState extends State<Home> {
             ListTile(
               // trailing: Text(),
               leading: Icon(Icons.swap_horiz,color: Colors.white70,),
-              title: Text('DONORS',style: TextStyle(color: Colors.white70,)),
+              title: Text('MY DONORS',style: TextStyle(color: Colors.white70,)),
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MyDonors()));
               },
@@ -65,7 +65,7 @@ class _HomeState extends State<Home> {
             ListTile(
               // trailing: Text(),
               leading: Icon(Icons.notification_important,color: Colors.white70,),
-              title: Text('RECIEVERS',style: TextStyle(color: Colors.white70,)),
+              title: Text('MY RECIEVERS',style: TextStyle(color: Colors.white70,)),
               onTap: () {
 
                 Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Reciever()));
@@ -74,7 +74,7 @@ class _HomeState extends State<Home> {
             ListTile(
               // trailing: Text(),
               leading: Icon(Icons.monetization_on,color: Colors.white70,),
-              title: Text('DONOR PAYMENTS',style: TextStyle(color: Colors.white70,)),
+              title: Text('PAYMENTS BY DONOR',style: TextStyle(color: Colors.white70,)),
               onTap: () {
 
                 Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MyDonorPayments()));
@@ -83,7 +83,7 @@ class _HomeState extends State<Home> {
             ListTile(
               // trailing: Text(),
               leading: Icon(Icons.monetization_on,color: Colors.white70,),
-              title: Text('RECIEVER PAYMENTS',style: TextStyle(color: Colors.white70,)),
+              title: Text('PAYMENTS TO RECIEVER',style: TextStyle(color: Colors.white70,)),
               onTap: () {
 
                 Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MyRecieverPayments()));
@@ -117,8 +117,12 @@ class _HomeState extends State<Home> {
         actions: <Widget>[
           new Stack(
             children: <Widget>[
-              new IconButton(icon: Icon(Icons.archive),iconSize: 30.0, onPressed: () {
-                           getPipeline();
+              new IconButton(icon: Icon(Icons.refresh),iconSize: 30.0, onPressed: () {
+
+                                    showAlertDialog(context);
+
+
+                           
                               }),
                               ],
                       ),
@@ -253,6 +257,43 @@ class _HomeState extends State<Home> {
                       Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
                       Home()), (Route<dynamic> route) => false);
                   }
+                  showAlertDialog(BuildContext context) {
+
+  // set up the buttons
+
+  Widget cancelButton = FlatButton(
+    child: Text("Cancel"),
+    onPressed:  () {
+      Navigator.of(context).pop();
+    },
+  );
+  Widget launchButton = FlatButton(
+    child: Text("Continue"),
+    onPressed:  () {
+
+      getPipeline();
+    },
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text("Notice"),
+    content: Text("Pressing this Continue button will create Recievers of this month. This button must be pressed once in month\nThank You"),
+    actions: [
+      cancelButton,
+      launchButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
+
 
 }
 

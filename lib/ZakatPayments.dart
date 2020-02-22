@@ -18,7 +18,7 @@ class _MyRecieverPaymentsState extends State<MyRecieverPayments> {
   Widget build(BuildContext context) {
     return Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.black,title: Text("RECIEVERS PAYMENTS"),
+            backgroundColor: Colors.black,title: Text("PAYMENTS TO RECIEVERS"),
             ),
 
               body: Container(

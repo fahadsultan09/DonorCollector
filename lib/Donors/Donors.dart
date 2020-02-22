@@ -16,7 +16,7 @@ class _MyDonorsState extends State<MyDonors> {
   Widget build(BuildContext context) {
     return Scaffold(
           appBar: AppBar(backgroundColor: Colors.black,
-            title: Text("MY DONORS"),
+            title: Text("MY DONORS (FATHER)",style: TextStyle(fontSize: 16.0),),
           ),
           body: Container(
             decoration: BoxDecoration(
