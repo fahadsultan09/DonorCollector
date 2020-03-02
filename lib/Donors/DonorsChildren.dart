@@ -7,15 +7,15 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class ChildrenList extends StatefulWidget {
+class childrenList extends StatefulWidget {
    String parentID;
-  ChildrenList(this.parentID);
+  childrenList(this.parentID);
  
   @override
-  _ChildrenListState createState() => _ChildrenListState();
+  _childrenListState createState() => _childrenListState();
 }
 
-class _ChildrenListState extends State<ChildrenList> {
+class _childrenListState extends State<childrenList> {
   String _amount = "",_paymentMode = "",_remarks = "";
   
   FirebaseMessaging fcm = FirebaseMessaging();
@@ -33,11 +33,11 @@ class _ChildrenListState extends State<ChildrenList> {
             gradient: LinearGradient(
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
-              colors: [Colors.black, color1])
+              colors: [Colors.black, backgroundcolor])
               ),
         child: FutureBuilder(
           future: Firestore.instance.collection("Users").document(widget.parentID).collection("children").getDocuments(),
-          // initialData: InitialData,
+          
           builder: buildDonors,
         ),
       ),
@@ -52,24 +52,18 @@ class _ChildrenListState extends State<ChildrenList> {
             itemCount: snapshot.data.documents.length,
             itemBuilder: (context, index) {
                 DocumentSnapshot user = snapshot.data.documents[index];
-                // int _userAmount;
-                // // Firestore.instance.collection("DonorCurrentPayment").document(user.documentID).get().then((document){
-                              
-                // //   setState(() {
 
-
-                // //   });
-                // // });
+                
                 return GestureDetector(
                     onTap: ()
                     {
                     showDialog(
-      // child: Container(),
+      
         context: context,
         builder: (context) {
           return SimpleDialog(
 
-            // backgroundColor: Colors.black12,
+            
             title: Text('Payment'),
             children: <Widget>[
               Container(
@@ -176,17 +170,15 @@ class _ChildrenListState extends State<ChildrenList> {
                         "PaymentMode":_paymentMode,
                         "Remarks":_remarks,
                         "Month":DateTime.now().month,
+                        "timestamp":DateTime.now(),
                     });
                     Firestore.instance.collection("Payment").document(user.documentID).setData({
                         "document":user.documentID,
                         "fcm":user["token"],
-                    });
-                  
-
-                                          
+                    });                 
                     Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-                      Home()), (Route<dynamic> route) => false);
-                    
+                    Home()), (Route<dynamic> route) => false);
+          
                   },
                 )
               ])
@@ -208,7 +200,7 @@ class _ChildrenListState extends State<ChildrenList> {
                 title: Text(user["Full Name"],style: TextStyle(fontSize: 19.0),),
                 subtitle: Text(user["Email"],style: TextStyle(fontSize: 13.0),),
                 trailing: Text(
-                  // user["Amount"].toString(),
+                  
                   "Phone: "+user["Phone"],
                   style: TextStyle(
                     color: Colors.green,
@@ -222,17 +214,14 @@ class _ChildrenListState extends State<ChildrenList> {
             },
         );
     } else if (snapshot.connectionState == ConnectionState.done && !snapshot.hasData ){
-        // Handle no data
+        
         return Center(
             child: Text("No Donors found."),
         );
     } else {
-        // Still loading
+        
         return Center(child: CircularProgressIndicator());
     }
 }
 
-// _displayDialog(BuildContext context) async {
-//     return 
-//   }
 }

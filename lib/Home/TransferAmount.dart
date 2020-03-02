@@ -29,7 +29,7 @@ class transferAmountState extends State<transferAmount> {
       bottomSheet: Container(
         height: 50.0,
         decoration: BoxDecoration(
-          // borderRadius: BorderRadius.circular(10.0),
+          
   gradient: LinearGradient(
     begin: Alignment.topRight,
     end: Alignment.bottomLeft,
@@ -54,13 +54,13 @@ class transferAmountState extends State<transferAmount> {
             gradient: LinearGradient(
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
-              colors: [Colors.black, color1])
+              colors: [Colors.black, backgroundcolor])
               
               ),
         padding: EdgeInsets.all(5),
         child: FutureBuilder(
           future: Firestore.instance.collection("Users2").getDocuments(),
-          // initialData: InitialData,
+          
           builder: buildReciever,
         ),
       ),
@@ -86,8 +86,8 @@ class transferAmountState extends State<transferAmount> {
               
                   borderRadius: BorderRadius.circular(12.0),
                 ),
-                // height: 200,
-                // color: Colors.amber,
+                
+                
                 child: Card(
             semanticContainer: true,
           
@@ -100,21 +100,17 @@ class transferAmountState extends State<transferAmount> {
                 child: ListTile(
                   
                   dense: true,
-                  // leading: CircleAvatar(
-                  //   child: Icon(Icons.person),
-                  //   radius: 25,
-                  // ),
-                  // title: Text(transaction['name']),
+
                   title: Text(
                       _donorUser["Full Name"],
                       
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 17,
                         fontWeight: FontWeight.w800,
                       ),
                       textAlign: TextAlign.left,
                     ),
-                  subtitle: Text("Rs. "+_donorUser["Amount"].toString(),style: TextStyle(fontSize: 20),),
+                  subtitle: Text("Rs. "+_donorUser["Amount"].toString(),style: TextStyle(fontSize: 15),),
                   trailing: FlatButton(color: Colors.grey,onPressed: ()
                   {
                       int inputValue = 0;
@@ -122,12 +118,12 @@ class transferAmountState extends State<transferAmount> {
 
                       
                     showDialog(
-                  // child: Container(),
+                  
                     context: context,
                     builder: (context) {
                         return SimpleDialog(
 
-                        // backgroundColor: Colors.black12,
+                        
                         title: Text('Amount Payment'),
                         children: <Widget>[
                           Container(
@@ -187,16 +183,18 @@ class transferAmountState extends State<transferAmount> {
                     });
                     Firestore.instance.collection("MyZakat").document(_donorUser.documentID).setData({"1":1});
                     Firestore.instance.collection("MyZakat").document(_donorUser.documentID).collection("MyPayments").document().setData({
-                      // "fcm":_donorUser["fcm"],
+                      "timestamp":DateTime.now(),
                       "Amount":inputValue,
                       "Name":widget._recieveruser["FullName"],
                       "PaymentDate":DateTime.now().toString().substring(0,10),
+                      
                     });
                      Firestore.instance.collection("DonorZakat").document().setData({
-                      // "fcm":_donorUser["fcm"],
+                      "timestamp":DateTime.now(),
                       "Amount":inputValue,
                       "Name":widget._recieveruser["FullName"],
                       "PaymentDate":DateTime.now().toString().substring(0,10),
+                      "fcm":_donorUser["token"],
                     });
 
                     Navigator.of(context).pop();
@@ -214,7 +212,7 @@ class transferAmountState extends State<transferAmount> {
                     });
 
                                   
-                    // Navigator.of(context).pop();
+                    
                     
                   },
                 )
@@ -232,12 +230,12 @@ class transferAmountState extends State<transferAmount> {
             },
         );
     } else if (snapshot.connectionState == ConnectionState.done && !snapshot.hasData ){
-        // Handle no data
+        
         return Center(
             child: Text("No Pipeline found.",style: TextStyle(color: Colors.black),),
         );
     } else {
-        // Still loading
+        
         return Center(child: CircularProgressIndicator());
     }
 }

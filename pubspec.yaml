@@ -10,6 +10,7 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^0.1.2
   cloud_firestore:
+  
   firebase_messaging:
   # gradient_app_bar:
 

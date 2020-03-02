@@ -1,5 +1,6 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collector/Home/HomePage.dart';
 import 'package:collector/Reciever/AddReciever.dart';
 import 'package:flutter/material.dart';
 
@@ -41,7 +42,7 @@ class RecieverState extends State<Reciever> {
         padding: EdgeInsets.all(5),
         child: FutureBuilder(
           future: Firestore.instance.collection("Reciever").getDocuments(),
-          // initialData: InitialData,
+          
           builder: buildReciever,
         ),
       ),
@@ -57,7 +58,120 @@ class RecieverState extends State<Reciever> {
 
                 return GestureDetector(
                     onTap: (){
-                      // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>ChildrenList(user.documentID)));
+                     
+                        showDialog(context: context,builder: (context){
+
+                      return Center(
+                        child: SimpleDialog(
+
+                          title: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                            Text("RECIEVER"),
+                            // SizedBox.fromSize(
+                            //   size: Size(56, 56), // button width and height
+                            //   child: ClipOval(
+                            //     child: Material(
+                            //       color: Colors.green, // button color
+                            //       child: InkWell(
+                            //         splashColor: Colors.blueGrey, // splash color
+                            //         onTap: () {
+
+                            //         }, // button pressed
+                            //         child: Column(
+                            //           mainAxisAlignment: MainAxisAlignment.center,
+                            //           children: <Widget>[
+                            //             Icon(Icons.mode_edit), // icon
+                            //             Text("Edit"), // text
+                            //           ],
+                            //         ),
+                            //       ),
+                            //     ),
+                            //   ),
+                            // ),
+                            SizedBox.fromSize(
+                              size: Size(56, 56), // button width and height
+                              child: ClipOval(
+                                child: Material(
+                                  color: Colors.red, // button color
+                                  child: InkWell(
+                                    splashColor: Colors.blueGrey, // splash color
+                                    onTap: () {
+                                      Navigator.of(context).pop();
+
+                                      Firestore.instance.collection("Reciever").document(user.documentID).delete();
+                                      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>Home()), (Route<dynamic> route) => false);
+
+                                    
+                                    }, // button pressed
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Icon(Icons.delete,size: 20.0,), // icon
+                                        Text("Delete"), // text
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],),
+                          children: <Widget>[
+
+                              Container(
+                                padding: EdgeInsets.only(right: 10.0,left: 10.0),
+         
+                                height: MediaQuery.of(context).size.height /2,
+                                width: MediaQuery.of(context).size.width-5,
+
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+
+                                    Row(
+                                      children: <Widget>[
+                                        Text("Name: ",style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),
+                                    Text(user["FullName"],style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),)
+                                      ],
+                                    ),
+                                     Row(
+                                      children: <Widget>[
+                                        Text("Father Name: ",style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),
+                                    Text(user["FatherName"],style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),)
+                                      ],
+                                    ),
+                                     Row(
+                                      children: <Widget>[
+                                        Text("Due Amount/Month: ",style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),
+                                    Text("Rs. "+user["Amount"].toString(),style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),)
+                                      ],
+                                    ),
+                                     Row(
+                                      children: <Widget>[
+                                        Text("Due Date: ",style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),
+                                    Text(user["DueDate"],style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),)
+                                      ],
+                                    ),
+                                     Row(
+                                      children: <Widget>[
+                                        Text("Phone: ",style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),
+                                    Text(user["Phone"],style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),)
+                                      ],
+                                    )
+
+                                    
+                                  ],
+                                ),
+                              )
+
+                          ],
+                        ),
+                      );
+
+                  });
+
+
                     },
               child: Container(
                 height: 90,
@@ -70,8 +184,8 @@ class RecieverState extends State<Reciever> {
               
                   borderRadius: BorderRadius.circular(12.0),
                 ),
-                // height: 200,
-                // color: Colors.amber,
+                
+                
                 child: Card(
             semanticContainer: true,
           
@@ -84,11 +198,11 @@ class RecieverState extends State<Reciever> {
                 child: ListTile(
                   
                   dense: true,
-                  // leading: CircleAvatar(
-                  //   child: Icon(Icons.person),
-                  //   radius: 25,
-                  // ),
-                  // title: Text(transaction['name']),
+                  
+                  
+                  
+                  
+                  
                   title: Text(
                       user["FullName"],
                       style: TextStyle(
@@ -97,7 +211,7 @@ class RecieverState extends State<Reciever> {
                       ),
                       textAlign: TextAlign.left,
                     ),
-                  subtitle: Text(user["Phone"]),
+                  // subtitle: Text(user["Phone"]),
                   trailing: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -112,7 +226,7 @@ class RecieverState extends State<Reciever> {
                     ),
                   ),
                   Text(
-                    "Due Date:   "+user["DueDate"],
+                    "Due Day:   "+user["DueDate"].toString(),
                     style: TextStyle(
                       fontSize: 13,
                       color: Colors.red,
@@ -128,14 +242,56 @@ class RecieverState extends State<Reciever> {
             },
         );
     } else if (snapshot.connectionState == ConnectionState.done && !snapshot.hasData ){
-        // Handle no data
+        
         return Center(
             child: Text("No Pipeline found.",style: TextStyle(color: Colors.black),),
         );
     } else {
-        // Still loading
+        
         return Center(child: CircularProgressIndicator());
     }
 }
 
 }
+
+
+showAlertDialog(BuildContext context,String id) {
+
+  
+
+  Widget cancelButton = FlatButton(
+    child: Text("Cancel",style: TextStyle(color: Colors.green),),
+    onPressed:  () {
+      Navigator.of(context).pop();
+    },
+  );
+  Widget launchButton = FlatButton(
+    child: Text("Continue",style: TextStyle(color: Colors.red),),
+    onPressed:  () {
+      // Navigator.of(context).pop();
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>Reciever()));
+      // Firestore.instance.collection("Reciever").document(id).delete();
+      // Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>Reciever()), (Route<dynamic> route) => false);
+    },
+  );
+
+  
+  AlertDialog alert = AlertDialog(
+    title: Text("Notice"),
+    content: Text("Pressing this Continue button will Delete the Reciever Forever\nThank You",style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold),),
+    actions: [
+      cancelButton,
+      launchButton,
+    ],
+  );
+
+  
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
+
+

@@ -1,36 +1,16 @@
 
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
-
-
-class MyDonorPayments extends StatefulWidget {
+class MyRecieverPayments extends StatefulWidget {
   @override
-  _MyDonorPaymentsState createState() => _MyDonorPaymentsState();
+  _MyRecieverPaymentsState createState() => _MyRecieverPaymentsState();
 }
-
-class _MyDonorPaymentsState extends State<MyDonorPayments> {
-
-List<String> month = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December"];
+class _MyRecieverPaymentsState extends State<MyRecieverPayments> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.black,title: Text("PAYMENTS BY DONOR"),
+            backgroundColor: Colors.black,title: Text("PAYMENTS TO RECIEVERS"),
             ),
 
               body: Container(
@@ -43,7 +23,7 @@ List<String> month = [
               ),
         padding: EdgeInsets.all(5),
         child: FutureBuilder(
-          future: Firestore.instance.collection("DonorPayment").getDocuments(),
+          future: Firestore.instance.collection("DonorZakat").orderBy('timestamp', descending: true).getDocuments(),
           // initialData: InitialData,
           builder: buildReciever,
         ),
@@ -82,30 +62,15 @@ List<String> month = [
                   ),
                 ),
                 child: ListTile(
-                  title: Text(user["Full Name"],style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold)),
-                  subtitle: Text("Payment Date: "+user["DateOfPayment"],style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
-                  trailing: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      Text(
-                  "Rs. "+user["Amount"],
+                  title: Text(user["Name"],style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold)),
+                  subtitle: Text("Payment Date: "+user["PaymentDate"].toString(),style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
+                  trailing: Text(
+                  "Rs. "+user["Amount"].toString(),
                     style: TextStyle(
                       color: Colors.green,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  
- 
-                  Text(
-                  "Payment Mode: "+user["PaymentMode"],
-                    style: TextStyle(
-                      color: Colors.green,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                    ],
-                  )
                 ),
             ),
                 );

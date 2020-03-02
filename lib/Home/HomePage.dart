@@ -2,10 +2,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collector/Donors/Donors.dart';
 import 'package:collector/Home/TransferAmount.dart';
-import 'package:collector/MyPayments.dart';
+import 'package:collector/Donors/DonorPayments.dart';
 import 'package:collector/Reciever/Reciever.dart';
+import 'package:collector/Reciever/RecieverPayments.dart';
 import 'package:collector/Reciever/utils.dart';
-import 'package:collector/ZakatPayments.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -16,7 +17,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   
-  // int pipelineSize = 0;
+  
   List<DocumentSnapshot> documents;
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,7 @@ class _HomeState extends State<Home> {
 
             Image.asset("assets/images/islamabad.jpg",fit: BoxFit.cover,color: Colors.black54,colorBlendMode: BlendMode.darken,),
             ListView(
-          // Important: Remove any padding from the ListView.
+          
           padding: EdgeInsets.zero,
           children: <Widget>[
             
@@ -44,18 +45,18 @@ class _HomeState extends State<Home> {
 
             ),
             ListTile(
-              // trailing: Text(),
+              
               leading: Icon(Icons.home,color: Colors.white70,),
               title: Text('HOME',style: TextStyle(color: Colors.white70,)),
               onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
+                
+                
+                
                 Navigator.pop(context);
               },
             ),
             ListTile(
-              // trailing: Text(),
+              
               leading: Icon(Icons.swap_horiz,color: Colors.white70,),
               title: Text('MY DONORS',style: TextStyle(color: Colors.white70,)),
               onTap: () {
@@ -63,7 +64,7 @@ class _HomeState extends State<Home> {
               },
             ),
             ListTile(
-              // trailing: Text(),
+              
               leading: Icon(Icons.notification_important,color: Colors.white70,),
               title: Text('MY RECIEVERS',style: TextStyle(color: Colors.white70,)),
               onTap: () {
@@ -72,7 +73,7 @@ class _HomeState extends State<Home> {
               },
             ),
             ListTile(
-              // trailing: Text(),
+              
               leading: Icon(Icons.monetization_on,color: Colors.white70,),
               title: Text('PAYMENTS BY DONOR',style: TextStyle(color: Colors.white70,)),
               onTap: () {
@@ -81,7 +82,7 @@ class _HomeState extends State<Home> {
               },
             ),
             ListTile(
-              // trailing: Text(),
+              
               leading: Icon(Icons.monetization_on,color: Colors.white70,),
               title: Text('PAYMENTS TO RECIEVER',style: TextStyle(color: Colors.white70,)),
               onTap: () {
@@ -90,19 +91,15 @@ class _HomeState extends State<Home> {
               },
             ),
             Divider(color: Colors.black87,height: 50,),
-            // Expanded(child: SizedBox(height: 30.0,),),
+            
             ListTile(
 
-              onTap: (){
-                // FirebaseAuth.instance.signOut();
-                // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>LoginPage()));
-              },
-              // trailing: Text(),
+              
               leading: Icon(Icons.exit_to_app,color: Colors.white70,),
               title: Text("Sign Out",style: TextStyle(color: Colors.white70,fontSize: 15.0)),
-              // subtitle: Text(_islamicDate.toString(),style: TextStyle(color: Colors.white70,)),
+              
 
-              // isThreeLine: true,
+              
             ),
           ],
         ),
@@ -134,13 +131,13 @@ class _HomeState extends State<Home> {
                             gradient: LinearGradient(
                               begin: Alignment.topRight,
                               end: Alignment.bottomLeft,
-                              colors: [Colors.black, color1])
+                              colors: [Colors.black, backgroundcolor])
                               
                               ),
                         padding: EdgeInsets.all(5),
                         child: FutureBuilder(
                           future: Firestore.instance.collection("Pipeline").getDocuments(),
-                          // initialData: InitialData,
+                          
                           builder: buildPipeline,
                         ),
                       ),
@@ -161,18 +158,18 @@ class _HomeState extends State<Home> {
                                     },
                               child: Container(
                                 height: 100.0,
-                                // padding: EdgeInsets.all(19),
+                                
                                 decoration: BoxDecoration(
-                            // gradient: LinearGradient(
-                            //   begin: Alignment.topRight,
-                            //   end: Alignment.bottomLeft,
-                            //   colors: [Colors.white70, Colors.blue[900]]),
+                            
+                            
+                            
+                            
                               
                               
                                   borderRadius: BorderRadius.circular(12.0),
                                 ),
-                                // height: 200,
-                                // color: Colors.amber,
+                                
+                                
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Card(
@@ -188,11 +185,11 @@ class _HomeState extends State<Home> {
                                   child: ListTile(
                                     
                                     dense: true,
-                                    // leading: CircleAvatar(
-                                    //   child: Icon(Icons.person),
-                                    //   radius: 25,
-                                    // ),
-                                    // title: Text(transaction['name']),
+                                    
+                                    
+                                    
+                                    
+                                    
                                     title: Text(
                                         user["FullName"],
                                         style: TextStyle(
@@ -233,12 +230,12 @@ class _HomeState extends State<Home> {
                             },
                         );
                     } else if (snapshot.connectionState == ConnectionState.done && !snapshot.hasData ){
-                        // Handle no data
+                        
                         return Center(
                             child: Text("No Pipeline found.",style: TextStyle(color: Colors.white),),
                         );
                     } else {
-                        // Still loading
+                        
                         return Center(child: CircularProgressIndicator());
                     }
                 }
@@ -248,9 +245,9 @@ class _HomeState extends State<Home> {
                   final QuerySnapshot result = await Firestore.instance.collection("Reciever").getDocuments();
                     documents = result.documents.toList();
                     documents.forEach((row){
-                      // data.documentID.toString();
+                      
                       Firestore.instance.collection("Pipeline").document(row.documentID).setData(row.data);
-                      // myBatch.add(data.documentID.toString());
+                      
                     });
 
 
@@ -259,7 +256,7 @@ class _HomeState extends State<Home> {
                   }
                   showAlertDialog(BuildContext context) {
 
-  // set up the buttons
+  
 
   Widget cancelButton = FlatButton(
     child: Text("Cancel"),
@@ -275,7 +272,7 @@ class _HomeState extends State<Home> {
     },
   );
 
-  // set up the AlertDialog
+  
   AlertDialog alert = AlertDialog(
     title: Text("Notice"),
     content: Text("Pressing this Continue button will create Recievers of this month. This button must be pressed once in month\nThank You"),
@@ -285,7 +282,7 @@ class _HomeState extends State<Home> {
     ],
   );
 
-  // show the dialog
+  
   showDialog(
     context: context,
     builder: (BuildContext context) {

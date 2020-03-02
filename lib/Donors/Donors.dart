@@ -23,7 +23,7 @@ class _MyDonorsState extends State<MyDonors> {
             gradient: LinearGradient(
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
-              colors: [Colors.black, color1])
+              colors: [Colors.black, backgroundcolor])
               
               ),
         child: FutureBuilder(
@@ -44,7 +44,7 @@ class _MyDonorsState extends State<MyDonors> {
 
                 return GestureDetector(
                     onTap: (){
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>ChildrenList(user.documentID)));
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>childrenList(user.documentID)));
                     },
         child: Padding(
           
@@ -62,13 +62,13 @@ class _MyDonorsState extends State<MyDonors> {
 
                   title: Text(user.documentID),
                 trailing: Icon(Icons.person,size: 30.0,),
-                  // trailing: Text(
-                  //   "",
-                  //   style: TextStyle(
-                  //     color: Colors.green,
-                  //     fontWeight: FontWeight.bold,
-                  //   ),
-                  // ),
+                  
+                  
+                  
+                  
+                  
+                  
+                  
                 ),
               ),
         ),
@@ -76,12 +76,12 @@ class _MyDonorsState extends State<MyDonors> {
             },
         );
     } else if (snapshot.connectionState == ConnectionState.done && !snapshot.hasData ){
-        // Handle no data
+        
         return Center(
             child: Text("No Donors found."),
         );
     } else {
-        // Still loading
+        
         return Center(child: CircularProgressIndicator());
     }
 }

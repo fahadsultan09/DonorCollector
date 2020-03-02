@@ -1,24 +1,34 @@
 
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 
 
-class MyRecieverPayments extends StatefulWidget {
+class MyDonorPayments extends StatefulWidget {
   @override
-  _MyRecieverPaymentsState createState() => _MyRecieverPaymentsState();
+  _MyDonorPaymentsState createState() => _MyDonorPaymentsState();
 }
 
-class _MyRecieverPaymentsState extends State<MyRecieverPayments> {
+class _MyDonorPaymentsState extends State<MyDonorPayments> {
 
-
+List<String> month = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.black,title: Text("PAYMENTS TO RECIEVERS"),
+            backgroundColor: Colors.black,title: Text("PAYMENTS BY DONOR"),
             ),
 
               body: Container(
@@ -31,8 +41,8 @@ class _MyRecieverPaymentsState extends State<MyRecieverPayments> {
               ),
         padding: EdgeInsets.all(5),
         child: FutureBuilder(
-          future: Firestore.instance.collection("DonorZakat").orderBy('PaymentDate').getDocuments(),
-          // initialData: InitialData,
+          future: Firestore.instance.collection("DonorPayment").orderBy('timestamp').getDocuments(),
+          
           builder: buildReciever,
         ),
       ),
@@ -60,8 +70,8 @@ class _MyRecieverPaymentsState extends State<MyRecieverPayments> {
                 
                     borderRadius: BorderRadius.circular(12.0),
                   ),
-                  // height: 200,
-                  // color: Colors.amber,
+                  
+                  
                   child: Card(
                 elevation: 4,
                 shape: RoundedRectangleBorder(
@@ -70,27 +80,42 @@ class _MyRecieverPaymentsState extends State<MyRecieverPayments> {
                   ),
                 ),
                 child: ListTile(
-                  title: Text(user["Name"],style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold)),
-                  subtitle: Text("Payment Date: "+user["PaymentDate"].toString(),style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
-                  trailing: Text(
-                  "Rs. "+user["Amount"].toString(),
+                  title: Text(user["Full Name"],style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold)),
+                  subtitle: Text("Payment Date: "+user["DateOfPayment"],style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
+                  trailing: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Text(
+                  "Rs. "+user["Amount"],
                     style: TextStyle(
                       color: Colors.green,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                  
+ 
+                  Text(
+                  "Payment Mode: "+user["PaymentMode"],
+                    style: TextStyle(
+                      color: Colors.green,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                    ],
+                  )
                 ),
             ),
                 );
             },
         );
     } else if (snapshot.connectionState == ConnectionState.done && !snapshot.hasData ){
-        // Handle no data
+        
         return Center(
-            child: Text("No Pipeline found.",style: TextStyle(color: Colors.black),),
+            child: Text("No Payments found.",style: TextStyle(color: Colors.black),),
         );
     } else {
-        // Still loading
+        
         return Center(child: CircularProgressIndicator());
     }
 }

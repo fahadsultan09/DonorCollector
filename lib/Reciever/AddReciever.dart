@@ -15,6 +15,7 @@ class _AddRecieverState extends State<AddReciever> {
 
   final _formKey = new GlobalKey<FormState>();
   RecieverClass reciever;
+
   Future validateAndSubmit() async 
   {
 
@@ -28,6 +29,7 @@ class _AddRecieverState extends State<AddReciever> {
     super.initState();
     
     reciever = new RecieverClass();
+    reciever.accountNumber = "";
   }
 
   @override

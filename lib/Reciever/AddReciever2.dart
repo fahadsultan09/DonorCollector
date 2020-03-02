@@ -41,13 +41,13 @@ class _AddReciever2State extends State<AddReciever2> {
      "Days":reciever.days
   });  
 
-  // Firestore.instance.collection("Pipeline").document().setData({
-  //   "FullName":reciever.fullName,
-  //   "Phone":reciever.phoneNum,
-  //   "Amount":reciever.amount,
-  //    "DueDate":reciever.dueDate,
-  //    "AccountNumber":reciever.accountNumber,
-  // });
+  
+  
+  
+  
+  
+  
+  
    
    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
     Home()), (Route<dynamic> route) => false); 
@@ -110,7 +110,7 @@ class _AddReciever2State extends State<AddReciever2> {
                  SizedBox(height: 10.0),
                   
                   TextFormField(
-                    // enabled: false,
+                    
                     onTap: (){
 
                         
@@ -139,7 +139,7 @@ class _AddReciever2State extends State<AddReciever2> {
                     },
                     keyboardType: TextInputType.text,
                       validator: (input) => input.isEmpty ? 'Due Date cannot be empty' : null,
-                    // initialValue: _dob,
+                    
                     onChanged: (value){
                         setState(() {
                           
@@ -152,7 +152,7 @@ class _AddReciever2State extends State<AddReciever2> {
                              
                         },),
                         labelText: 'DUE DATE',
-                        // hintText: "02-02-2000",
+                        
                         labelStyle: TextStyle(
                             fontFamily: 'Montserrat',
                             fontWeight: FontWeight.bold,
