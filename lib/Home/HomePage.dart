@@ -3,9 +3,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collector/Donors/Donors.dart';
 import 'package:collector/Home/TransferAmount.dart';
 import 'package:collector/Donors/DonorPayments.dart';
-import 'package:collector/Reciever/Reciever.dart';
-import 'package:collector/Reciever/RecieverPayments.dart';
-import 'package:collector/Reciever/utils.dart';
+import 'package:collector/Reponsibilities/RecieverPayments.dart';
+import 'package:collector/Reponsibilities/Reponsibilities.dart';
+import 'package:collector/Reponsibilities/utils.dart';
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -17,7 +18,26 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   
-  
+  @override
+  void initState() { 
+    super.initState();
+      Firestore.instance.collection("Total").document("Total").get().then((document){
+
+      if(document['Total']!=null)
+      {
+        setState(() {
+          amount = document['Total'];
+        });
+        
+      }
+      else{
+        amount = 0;
+      }
+      
+
+    });
+  }
+  int amount = 0;
   List<DocumentSnapshot> documents;
   @override
   Widget build(BuildContext context) {
@@ -58,18 +78,18 @@ class _HomeState extends State<Home> {
             ListTile(
               
               leading: Icon(Icons.swap_horiz,color: Colors.white70,),
-              title: Text('MY DONORS',style: TextStyle(color: Colors.white70,)),
+              title: Text('MY FUNDS',style: TextStyle(color: Colors.white70,)),
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MyDonors()));
+                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MyFunds()));
               },
             ),
             ListTile(
               
               leading: Icon(Icons.notification_important,color: Colors.white70,),
-              title: Text('MY RECIEVERS',style: TextStyle(color: Colors.white70,)),
+              title: Text('MY Reponsibilities ',style: TextStyle(color: Colors.white70,)),
               onTap: () {
 
-                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Reciever()));
+                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Reponsibilities()));
               },
             ),
             ListTile(
@@ -90,13 +110,19 @@ class _HomeState extends State<Home> {
                 Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MyRecieverPayments()));
               },
             ),
+            ListTile(
+              
+              leading: Icon(Icons.attach_money,color: Colors.white70,),
+              title: Text('Total Balance',style: TextStyle(color: Colors.white70,)),
+              trailing: Text(amount==0?"":"Rs.   "+amount.toString(),style: TextStyle(color: Colors.white70,)),
+            ),
             Divider(color: Colors.black87,height: 50,),
             
             ListTile(
 
               
               leading: Icon(Icons.exit_to_app,color: Colors.white70,),
-              title: Text("Sign Out",style: TextStyle(color: Colors.white70,fontSize: 15.0)),
+              title: Text("Exit",style: TextStyle(color: Colors.white70,fontSize: 15.0)),
               
 
               
@@ -154,7 +180,7 @@ class _HomeState extends State<Home> {
                                 return GestureDetector(
                                     onTap: (){
                 
-                                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>transferAmount(user)));
+                                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>transferAmount(user,amount)));
                                     },
                               child: Container(
                                 height: 100.0,
@@ -191,7 +217,7 @@ class _HomeState extends State<Home> {
                                     
                                     
                                     title: Text(
-                                        user["FullName"],
+                                        user["FullName"]!=null?user["FullName"]:"",
                                         style: TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.w800,
@@ -205,21 +231,21 @@ class _HomeState extends State<Home> {
                                       children: <Widget>[
                                         Text(
                                           
-                                      "Rs. "+user["Amount"].toString(),
+                                      "Rs. "+user["Amount"].toString()!=null?user["Amount"].toString():"",
                                       style: TextStyle(
                                         fontSize: 15,
                                         color: Colors.green,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                    Text(
-                                      "Due Date "+user["DueDate"],
-                                      style: TextStyle(
-                                        fontSize: 13,
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
                                       ],
                                     )
                                   ),
@@ -275,7 +301,7 @@ class _HomeState extends State<Home> {
   
   AlertDialog alert = AlertDialog(
     title: Text("Notice"),
-    content: Text("Pressing this Continue button will create Recievers of this month. This button must be pressed once in month\nThank You"),
+    content: Text("Pressing this Continue button will create Responsilities of this month. This button must be pressed once in month\nThank You"),
     actions: [
       cancelButton,
       launchButton,

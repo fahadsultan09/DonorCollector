@@ -2,7 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collector/Home/HomePage.dart';
-import 'package:collector/Reciever/utils.dart';
+import 'package:collector/Reponsibilities/utils.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,16 +17,33 @@ class childrenList extends StatefulWidget {
 
 class _childrenListState extends State<childrenList> {
   String _amount = "",_paymentMode = "",_remarks = "";
-  
+  int totalAmount = 0;
   FirebaseMessaging fcm = FirebaseMessaging();
 
+  @override
+  void initState() {
+    
+    Firestore.instance.collection("Total").document("Total").get().then((document){
+
+      if(document['Total']!=null)
+      {
+        setState(() {
+          totalAmount = document['Total'];
+        });
+        
+      }
+      
+
+    });
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.black,
             centerTitle: true,
-            title: Text("ADD PAYMENTS (CHILDRENS)",style: TextStyle(fontSize: 14),),
+            title: Text("ADD FUNDS (CHILDRENS)",style: TextStyle(fontSize: 14),),
           ),
           body: Container(
             decoration: BoxDecoration(
@@ -141,6 +158,9 @@ class _childrenListState extends State<childrenList> {
                 new FlatButton(
                   child: new Text('SUBMIT'),
                   onPressed: () {
+                    Firestore.instance.collection("Total").document("Total").setData({
+                      'Total':totalAmount + int.parse(_amount) ,
+                    });                    
                     int _tempAmount = user["Amount"] +int.parse(_amount);
                  
                     Firestore.instance.collection("Users").document(user["Father Name"]).collection("children").document(user.documentID).updateData({

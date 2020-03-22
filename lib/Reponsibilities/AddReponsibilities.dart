@@ -1,27 +1,36 @@
 
 
 
-import 'package:collector/Reciever/AddReciever2.dart';
-import 'package:collector/Reciever/utils.dart';
+import 'package:collector/Reponsibilities/AddReponsibilities2.dart';
+import 'package:collector/Reponsibilities/utils.dart';
 import 'package:flutter/material.dart';
 
-class AddReciever extends StatefulWidget {
+class AddReponsibilities extends StatefulWidget {
   @override
-  _AddRecieverState createState() => _AddRecieverState();
+  _AddReponsibilitiesState createState() => _AddReponsibilitiesState();
 }
 
-class _AddRecieverState extends State<AddReciever> {
-  // bool obsureTextValue = true;
+class _AddReponsibilitiesState extends State<AddReponsibilities> {
+
 
   final _formKey = new GlobalKey<FormState>();
   RecieverClass reciever;
 
+  bool validateAndSave() {
+    final form = _formKey.currentState;
+    if (form.validate()) {
+      form.save();
+      print("Form is valid");
+      return true;
+    }
+    return false;
+  }
   Future validateAndSubmit() async 
   {
-
-    
-      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>AddReciever2(reciever)));
-
+      if(validateAndSave()){
+         Navigator.of(context).push(MaterialPageRoute(builder: (context)=>AddReponsibilities2(reciever)));
+      }
+     
   }
   
   @override
@@ -35,10 +44,11 @@ class _AddRecieverState extends State<AddReciever> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-        resizeToAvoidBottomPadding: false,
-        body:  new Form(
-          key: _formKey,
-          child: ListView(
+
+        resizeToAvoidBottomPadding: true,
+        body:  Form(
+           key: _formKey,
+                  child: ListView(
           children: <Widget>[
 
           Container(
@@ -46,8 +56,9 @@ class _AddRecieverState extends State<AddReciever> {
               child: Column(
                 children: <Widget>[
                   TextFormField(
-                    keyboardType: TextInputType.text,
                     validator: (input) => input.isEmpty ? 'Name cannot be empty' : null,
+                    keyboardType: TextInputType.text,
+                      
                       onChanged: (value){
                            
                             reciever.fullName = value;
@@ -67,6 +78,9 @@ class _AddRecieverState extends State<AddReciever> {
                   SizedBox(height: 10.0),
                   
                      TextFormField(
+                       onFieldSubmitted: (value){
+                          print(value);
+                       },
                     keyboardType: TextInputType.number,
                       validator: (input) => input.isEmpty ? 'Phone Number cannot be empty' : null,
                       onChanged: (value){
@@ -220,9 +234,9 @@ class _AddRecieverState extends State<AddReciever> {
                 ],
               )
               ),
-        ]
-        ) 
-          ,)
+          ]
+          ),
+        )
         
         );
 

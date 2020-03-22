@@ -3,29 +3,39 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collector/Home/HomePage.dart';
 
-import 'package:collector/Reciever/utils.dart';
+import 'package:collector/Reponsibilities/utils.dart';
 import 'package:flutter/material.dart';
 
-class AddReciever2 extends StatefulWidget {
+class AddReponsibilities2 extends StatefulWidget {
 
   RecieverClass reciever;
 
-  AddReciever2(this.reciever);
+  AddReponsibilities2(this.reciever);
   @override
-  _AddReciever2State createState() => _AddReciever2State(reciever);
+  _AddReponsibilities2State createState() => _AddReponsibilities2State(reciever);
 }
 
-class _AddReciever2State extends State<AddReciever2> {
+class _AddReponsibilities2State extends State<AddReponsibilities2> {
   String gender = "Male";
   RecieverClass reciever = new RecieverClass();
-  _AddReciever2State(this.reciever);
+  _AddReponsibilities2State(this.reciever);
   final _formKey = new GlobalKey<FormState>();
   List<String> _items = ["Male","Female"];
 
-  
+    bool validateAndSave() {
+    final form = _formKey.currentState;
+    if (form.validate()) {
+      form.save();
+      print("Form is valid");
+      return true;
+    }
+    return false;
+  }
   Future validateAndSubmit () async {
 
-  Firestore.instance.collection("Reciever").document().setData({
+
+if(validateAndSave()){
+    Firestore.instance.collection("Reciever").document().setData({
     "FullName":reciever.fullName,
     "Phone":reciever.phoneNum,
     "Amount":reciever.amount,
@@ -35,23 +45,17 @@ class _AddReciever2State extends State<AddReciever2> {
      "Gender":reciever.gender,
      "Reference":reciever.reference,
      "StatusOfReference":reciever.statusOfReference,
-     "DueDate":reciever.dueDate,
+    //  "DueDate":reciever.dueDate,
      "AccountNumber":reciever.accountNumber,
      "MemberNeeded":reciever.memberNeeded,
-     "Days":reciever.days
+    //  "Days":reciever.days
   });  
 
-  
-  
-  
-  
-  
-  
-  
-   
+
    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
     Home()), (Route<dynamic> route) => false); 
 
+}
   }
 
   @override
@@ -107,95 +111,44 @@ class _AddReciever2State extends State<AddReciever2> {
                         focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.green))),
                   ),
-                 SizedBox(height: 10.0),
                   
-                  TextFormField(
-                    
-                    onTap: (){
-
-                        
-                         Future<DateTime> selectedDate = showDatePicker(
-   context: context,
-   initialDate: DateTime(2020),
-   firstDate: DateTime(2019),
-   lastDate: DateTime(2030),
-   builder: (BuildContext context, Widget child) {
-     return Theme(
-       data: ThemeData.dark(),
-       child: child,
-     );
-   },
- );
-
- if(selectedDate!=null){
-    selectedDate.then((onValue){
-      setState(() {
-      reciever.dueDate =   onValue.toString().substring(0,10);
-
-      });
-    });
- }
-      
-                    },
-                    keyboardType: TextInputType.text,
-                      validator: (input) => input.isEmpty ? 'Due Date cannot be empty' : null,
-                    
-                    onChanged: (value){
-                        setState(() {
-                          
-                          value = reciever.dueDate;
-
-                        });
-                    },
-                    decoration: InputDecoration(
-                        suffixIcon: IconButton(icon: Icon(Icons.calendar_today),onPressed: (){
-                             
-                        },),
-                        labelText: 'DUE DATE',
-                        
-                        labelStyle: TextStyle(
-                            fontFamily: 'Montserrat',
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey),
-                        focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.green))),
-                  ),
-
+                
                  SizedBox(height: 10.0),
 
                  
                   
                     
                 
-              TextFormField(
-                    keyboardType: TextInputType.number,
-                      validator: (input) => input.isEmpty ? 'This cannot be empty' : null,
-                      onChanged: (value){
+//               TextFormField(
+//                     keyboardType: TextInputType.number,
+//                       validator: (input) => input.isEmpty ? 'This cannot be empty' : null,
+//                       onChanged: (value){
                            
-                            reciever.days = int.parse(value);
+//                             reciever.days = int.parse(value);
                              
-                          },
-                    decoration: InputDecoration(
-                        hintText: "INFORM BEFORE HOW MANY DAYS OF THE DUE DATE",
-                        labelText: 'INFORM DAY',
-                        labelStyle: TextStyle(
-                            fontFamily: 'Montserrat',
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey),
-                        focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.green))),
-                  ),
+//                           },
+//                     decoration: InputDecoration(
+//                         hintText: "INFORM BEFORE HOW MANY DAYS OF THE DUE DATE",
+//                         labelText: 'INFORM DAY',
+//                         labelStyle: TextStyle(
+//                             fontFamily: 'Montserrat',
+//                             fontWeight: FontWeight.bold,
+//                             color: Colors.grey),
+//                         focusedBorder: UnderlineInputBorder(
+//                             borderSide: BorderSide(color: Colors.green))),
+//                   ),
 
-SizedBox(height: 10.0),
+// SizedBox(height: 10.0),
 
                  
                    Container(
-                width: 150.0,
+                width: MediaQuery.of(context).size.width-50,
                 height: 60.0,
                 decoration: BoxDecoration(
 
-                    borderRadius: BorderRadius.circular(20.0),
+                    // borderRadius: BorderRadius.circular(20.0),
                     border: Border.all(color: Colors.blueGrey),
+                    
                 ),
                 child : DropdownButtonHideUnderline(
 

@@ -1,20 +1,20 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collector/Home/HomePage.dart';
-import 'package:collector/Reciever/AddReciever.dart';
+import 'package:collector/Reponsibilities/AddReponsibilities.dart';
 import 'package:flutter/material.dart';
 
  
-class Reciever extends StatefulWidget {
-  Reciever() : super();
+class Reponsibilities extends StatefulWidget {
+  Reponsibilities() : super();
  
-  final String title = "My Recievers";
+  final String title = "My Reponsibilitiess";
  
   @override
-  RecieverState createState() => RecieverState();
+  ReponsibilitiesState createState() => ReponsibilitiesState();
 }
  
-class RecieverState extends State<Reciever> {
+class ReponsibilitiesState extends State<Reponsibilities> {
   
   @override
   Widget build(BuildContext context) {
@@ -22,9 +22,9 @@ class RecieverState extends State<Reciever> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.red,
         onPressed: (){
-            Navigator.push(context,MaterialPageRoute(builder: (context)=>AddReciever()));
+            Navigator.push(context,MaterialPageRoute(builder: (context)=>AddReponsibilities()));
         },
-        tooltip: 'Add Reciever',
+        tooltip: 'Add Reponsibilities',
         child: new Icon(Icons.add,size: 40,),
       ),
       appBar: AppBar(
@@ -68,34 +68,34 @@ class RecieverState extends State<Reciever> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                             Text("RECIEVER"),
-                            // SizedBox.fromSize(
-                            //   size: Size(56, 56), // button width and height
-                            //   child: ClipOval(
-                            //     child: Material(
-                            //       color: Colors.green, // button color
-                            //       child: InkWell(
-                            //         splashColor: Colors.blueGrey, // splash color
-                            //         onTap: () {
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
 
-                            //         }, // button pressed
-                            //         child: Column(
-                            //           mainAxisAlignment: MainAxisAlignment.center,
-                            //           children: <Widget>[
-                            //             Icon(Icons.mode_edit), // icon
-                            //             Text("Edit"), // text
-                            //           ],
-                            //         ),
-                            //       ),
-                            //     ),
-                            //   ),
-                            // ),
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
                             SizedBox.fromSize(
-                              size: Size(56, 56), // button width and height
+                              size: Size(56, 56), 
                               child: ClipOval(
                                 child: Material(
-                                  color: Colors.red, // button color
+                                  color: Colors.red, 
                                   child: InkWell(
-                                    splashColor: Colors.blueGrey, // splash color
+                                    splashColor: Colors.blueGrey, 
                                     onTap: () {
                                       Navigator.of(context).pop();
 
@@ -103,12 +103,12 @@ class RecieverState extends State<Reciever> {
                                       Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>Home()), (Route<dynamic> route) => false);
 
                                     
-                                    }, // button pressed
+                                    }, 
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: <Widget>[
-                                        Icon(Icons.delete,size: 20.0,), // icon
-                                        Text("Delete"), // text
+                                        Icon(Icons.delete,size: 20.0,), 
+                                        Text("Delete"), 
                                       ],
                                     ),
                                   ),
@@ -147,12 +147,12 @@ class RecieverState extends State<Reciever> {
                                     Text("Rs. "+user["Amount"].toString(),style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),)
                                       ],
                                     ),
-                                     Row(
-                                      children: <Widget>[
-                                        Text("Due Date: ",style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),
-                                    Text(user["DueDate"],style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),)
-                                      ],
-                                    ),
+                                    //  Row(
+                                    //   children: <Widget>[
+                                    //     Text("Due Date: ",style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),
+                                    // Text(user["DueDate"],style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),)
+                                    //   ],
+                                    // ),
                                      Row(
                                       children: <Widget>[
                                         Text("Phone: ",style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),
@@ -211,7 +211,7 @@ class RecieverState extends State<Reciever> {
                       ),
                       textAlign: TextAlign.left,
                     ),
-                  // subtitle: Text(user["Phone"]),
+                  
                   trailing: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -225,14 +225,14 @@ class RecieverState extends State<Reciever> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Text(
-                    "Due Day:   "+user["DueDate"].toString(),
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: Colors.red,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  // Text(
+                  //   "Due Day:   "+user["DueDate"].toString(),
+                  //   style: TextStyle(
+                  //     fontSize: 13,
+                  //     color: Colors.red,
+                  //     fontWeight: FontWeight.bold,
+                  //   ),
+                  // ),
                     ],
                   )
                 ),
@@ -268,10 +268,10 @@ showAlertDialog(BuildContext context,String id) {
   Widget launchButton = FlatButton(
     child: Text("Continue",style: TextStyle(color: Colors.red),),
     onPressed:  () {
-      // Navigator.of(context).pop();
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>Reciever()));
-      // Firestore.instance.collection("Reciever").document(id).delete();
-      // Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>Reciever()), (Route<dynamic> route) => false);
+      
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>Reponsibilities()));
+      
+      
     },
   );
 

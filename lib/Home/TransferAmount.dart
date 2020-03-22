@@ -1,14 +1,15 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collector/Home/HomePage.dart';
-import 'package:collector/Reciever/utils.dart';
+
+import 'package:collector/Reponsibilities/utils.dart';
 import 'package:flutter/material.dart';
 
  
 class transferAmount extends StatefulWidget {
   
-  transferAmount(this._recieveruser) : super();
-  
+  transferAmount(this._recieveruser,this.balance) : super();
+  int balance = 0;
   final String title = "transferAmounts";
   DocumentSnapshot _recieveruser;
   @override
@@ -17,8 +18,21 @@ class transferAmount extends StatefulWidget {
  
 class transferAmountState extends State<transferAmount> {
   int amount = 0;
+  
   @override
   void initState() {
+     Firestore.instance.collection("Total").document("Total").get().then((document){
+
+      if(document['Total']!=null)
+      {
+        setState(() {
+          widget.balance = document['Total'];
+        });
+        
+      }
+      
+
+    });
     amount = widget._recieveruser["Amount"];
     
       super.initState();
@@ -172,12 +186,16 @@ class transferAmountState extends State<transferAmount> {
 
                     if(inputValue<=_donorUser["Amount"] && inputValue<=amount){
 
-
                     amount = amount - inputValue;
                     int temp_amount = _donorUser["Amount"] - inputValue;
                     Firestore.instance.collection("Users2").document(_donorUser.documentID).updateData({
                       "Amount":temp_amount,
-                    }); 
+                    });
+                    
+                      Firestore.instance.collection("Total").document("Total").updateData({
+                        "Total":widget.balance-inputValue,
+                      });
+                       
                     Firestore.instance.collection("Pipeline").document(widget._recieveruser.documentID).updateData({
                       "Amount":amount,
                     });

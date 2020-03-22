@@ -2,21 +2,21 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collector/Donors/DonorsChildren.dart';
-import 'package:collector/Reciever/utils.dart';
+import 'package:collector/Reponsibilities/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class MyDonors extends StatefulWidget {
+class MyFunds extends StatefulWidget {
   @override
-  _MyDonorsState createState() => _MyDonorsState();
+  _MyFundsState createState() => _MyFundsState();
 }
 
-class _MyDonorsState extends State<MyDonors> {
+class _MyFundsState extends State<MyFunds> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
           appBar: AppBar(backgroundColor: Colors.black,
-            title: Text("MY DONORS (FATHER)",style: TextStyle(fontSize: 16.0),),
+            title: Text("MY FUNDS (FATHER)",style: TextStyle(fontSize: 16.0),),
           ),
           body: Container(
             decoration: BoxDecoration(
