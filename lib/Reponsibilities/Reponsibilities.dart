@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 class Reponsibilities extends StatefulWidget {
   Reponsibilities() : super();
  
-  final String title = "My Reponsibilitiess";
+  final String title = "Reponsibilitiess";
  
   @override
   ReponsibilitiesState createState() => ReponsibilitiesState();
@@ -65,29 +65,11 @@ class ReponsibilitiesState extends State<Reponsibilities> {
                         child: SimpleDialog(
 
                           title: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
                             Text("RECIEVER"),
                             
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
+  
                             
                             SizedBox.fromSize(
                               size: Size(56, 56), 
@@ -131,32 +113,32 @@ class ReponsibilitiesState extends State<Reponsibilities> {
 
                                     Row(
                                       children: <Widget>[
-                                        Text("Name: ",style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),
-                                    Text(user["FullName"],style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),)
+                                        Text("Name:   ",style: TextStyle(fontSize: 16,fontFamily: 'Montserrat',fontWeight: FontWeight.bold),),
+                                    Text(user["FullName"],style: TextStyle(fontSize: 20,fontFamily: 'Montserrat',fontWeight: FontWeight.bold),)
                                       ],
                                     ),
                                      Row(
                                       children: <Widget>[
-                                        Text("Father Name: ",style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),
-                                    Text(user["FatherName"],style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),)
+                                        Text("Father Name:  ",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold,fontFamily: 'Montserrat'),),
+                                    Text(user["FatherName"],style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,fontFamily: 'Montserrat'),)
                                       ],
                                     ),
                                      Row(
                                       children: <Widget>[
-                                        Text("Due Amount/Month: ",style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),
-                                    Text("Rs. "+user["Amount"].toString(),style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),)
+                                        Text("Due Amount per. Month: ",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold,fontFamily: 'Montserrat'),),
+                                    Text("Rs. "+user["Amount"].toString(),style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,fontFamily: 'Montserrat'),)
                                       ],
                                     ),
-                                    //  Row(
-                                    //   children: <Widget>[
-                                    //     Text("Due Date: ",style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),
-                                    // Text(user["DueDate"],style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),)
-                                    //   ],
-                                    // ),
                                      Row(
                                       children: <Widget>[
-                                        Text("Phone: ",style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),
-                                    Text(user["Phone"],style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),)
+                                        Text("Due Day: ",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold,fontFamily: 'Montserrat'),),
+                                    Text(user["DueDay"].toString(),style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,fontFamily: 'Montserrat'),)
+                                      ],
+                                    ),
+                                     Row(
+                                      children: <Widget>[
+                                        Text("Phone: ",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold,fontFamily: 'Montserrat'),),
+                                    Text(user["Phone"],style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,fontFamily: 'Montserrat'),)
                                       ],
                                     )
 

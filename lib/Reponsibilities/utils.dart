@@ -11,10 +11,10 @@ class RecieverClass{
   String gender;
   String reference ;
   String statusOfReference ;
-  String dueDate;
+  int dueDay;
   String accountNumber ;
-  String memberNeeded;
-  int days;
+  String responsibiltyType;
+
 
   RecieverClass(){
   fullName="";
@@ -27,10 +27,10 @@ class RecieverClass{
   gender = "Male";
   reference ="";
   statusOfReference ="";
-  dueDate = "";
+
   accountNumber ="";
-  memberNeeded = "";
-  days =0;
+  responsibiltyType = "";
+
   }
 }
 

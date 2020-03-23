@@ -1,6 +1,11 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+
+
+
+
+
 class MyRecieverPayments extends StatefulWidget {
   @override
   _MyRecieverPaymentsState createState() => _MyRecieverPaymentsState();
@@ -62,7 +67,7 @@ class _MyRecieverPaymentsState extends State<MyRecieverPayments> {
                   ),
                 ),
                 child: ListTile(
-                  title: Text(user["Name"],style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold)),
+                  title: Text(user["RecieverName"],style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold)),
                   subtitle: Text("Payment Date: "+user["PaymentDate"].toString(),style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
                   trailing: Text(
                   "Rs. "+user["Amount"].toString(),

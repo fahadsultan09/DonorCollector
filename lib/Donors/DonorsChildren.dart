@@ -43,7 +43,7 @@ class _childrenListState extends State<childrenList> {
           appBar: AppBar(
             backgroundColor: Colors.black,
             centerTitle: true,
-            title: Text("ADD FUNDS (CHILDRENS)",style: TextStyle(fontSize: 14),),
+            title: Text("FUNDS (CHILDRENS)",style: TextStyle(fontSize: 14),),
           ),
           body: Container(
             decoration: BoxDecoration(

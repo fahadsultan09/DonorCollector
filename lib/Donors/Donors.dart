@@ -16,7 +16,7 @@ class _MyFundsState extends State<MyFunds> {
   Widget build(BuildContext context) {
     return Scaffold(
           appBar: AppBar(backgroundColor: Colors.black,
-            title: Text("MY FUNDS (FATHER)",style: TextStyle(fontSize: 16.0),),
+            title: Text("FUNDS (FATHER)",style: TextStyle(fontSize: 16.0),),
           ),
           body: Container(
             decoration: BoxDecoration(

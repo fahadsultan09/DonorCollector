@@ -10,7 +10,7 @@ class transferAmount extends StatefulWidget {
   
   transferAmount(this._recieveruser,this.balance) : super();
   int balance = 0;
-  final String title = "transferAmounts";
+  final String title = "PAYMENTS";
   DocumentSnapshot _recieveruser;
   @override
   transferAmountState createState() => transferAmountState();
@@ -19,6 +19,18 @@ class transferAmount extends StatefulWidget {
 class transferAmountState extends State<transferAmount> {
   int amount = 0;
   
+  final _formKey = new GlobalKey<FormState>();
+  RecieverClass reciever;
+
+  bool validateAndSave() {
+    final form = _formKey.currentState;
+    if (form.validate()) {
+      form.save();
+      print("Form is valid");
+      return true;
+    }
+    return false;
+  }
   @override
   void initState() {
      Firestore.instance.collection("Total").document("Total").get().then((document){
@@ -130,116 +142,128 @@ class transferAmountState extends State<transferAmount> {
                       int inputValue = 0;
                       
 
-                      
-                    showDialog(
-                  
-                    context: context,
-                    builder: (context) {
-                        return SimpleDialog(
-
                         
-                        title: Text('Amount Payment'),
-                        children: <Widget>[
-                          Container(
-                          padding: EdgeInsets.only(right: 10.0,left: 10.0),
+                      showDialog(
                     
-                          height: MediaQuery.of(context).size.height /2,
-                          width: MediaQuery.of(context).size.width-5,
+                      context: context,
+                      builder: (context) {
+                          return SimpleDialog(
+
                           
-                          child: TextFormField(
-                                keyboardType: TextInputType.number,
-                                  validator: (input) => input.isEmpty ? 'Amount Value cannot be null' : null,
-                                  onChanged: (value){
-                                      inputValue = int.parse(value);
-                          },
+                          title: Text('Amount Payment'),
+                          children: <Widget>[
+                            Form(
+                              key: _formKey,
+
+                                                        child: Container(
+                            padding: EdgeInsets.only(right: 10.0,left: 10.0),
+                    
+                            height: MediaQuery.of(context).size.height /2,
+                            width: MediaQuery.of(context).size.width-5,
+                            
+                            child: TextFormField(
+                                  keyboardType: TextInputType.number,
+                                    validator: (input) => input.isEmpty ? 'Amount Value cannot be null' : null,
+                                    onChanged: (value){
+                                        inputValue = int.parse(value);
+                            },
                         decoration: InputDecoration(
                         
                         labelText: 'AMOUNT',
                         labelStyle: TextStyle(
-                            fontFamily: 'Montserrat',
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey),
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey),
                         focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.green
-                            )
-                            )
+                              borderSide: BorderSide(color: Colors.green
+                              )
+                              )
                         ),
-                  ),
+                          ),
               
-              ),
+                          ),
+                                      ),
 
-              SizedBox(
-                height: 20.0,
-              ),
-              new Row(children: <Widget>[
-                new FlatButton(
-                  child: new Text('CANCEL'),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-                new FlatButton(
-                  child: new Text('SUBMIT'),
-                  onPressed: () {
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          new Row(children: <Widget>[
+                            new FlatButton(
+                              child: new Text('CANCEL'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            new FlatButton(
+                              child: new Text('SUBMIT'),
+                                  onPressed: () {
 
-                    setState(() {
+                                setState(() {
 
-                    if(inputValue<=_donorUser["Amount"] && inputValue<=amount){
+                                if(inputValue<=_donorUser["Amount"] && inputValue<=amount){
 
-                    amount = amount - inputValue;
-                    int temp_amount = _donorUser["Amount"] - inputValue;
-                    Firestore.instance.collection("Users2").document(_donorUser.documentID).updateData({
-                      "Amount":temp_amount,
-                    });
-                    
-                      Firestore.instance.collection("Total").document("Total").updateData({
-                        "Total":widget.balance-inputValue,
-                      });
-                       
-                    Firestore.instance.collection("Pipeline").document(widget._recieveruser.documentID).updateData({
-                      "Amount":amount,
-                    });
-                    Firestore.instance.collection("MyZakat").document(_donorUser.documentID).setData({"1":1});
-                    Firestore.instance.collection("MyZakat").document(_donorUser.documentID).collection("MyPayments").document().setData({
-                      "timestamp":DateTime.now(),
-                      "Amount":inputValue,
-                      "Name":widget._recieveruser["FullName"],
-                      "PaymentDate":DateTime.now().toString().substring(0,10),
-                      
-                    });
-                     Firestore.instance.collection("DonorZakat").document().setData({
-                      "timestamp":DateTime.now(),
-                      "Amount":inputValue,
-                      "Name":widget._recieveruser["FullName"],
-                      "PaymentDate":DateTime.now().toString().substring(0,10),
-                      "fcm":_donorUser["token"],
-                    });
-
-                    Navigator.of(context).pop();
-
-                    }
-                    else{
-                      Navigator.of(context).pop();
-                    }  
-                    if(amount<=0){
-                      
-                      Firestore.instance.collection("Pipeline").document(widget._recieveruser.documentID).delete();
-                       Navigator.of(context).push(MaterialPageRoute(builder: (context) =>Home())); 
-                    }
-
-                    });
-
+                                amount = amount - inputValue;
+                                int temp_amount = _donorUser["Amount"] - inputValue;
+                                Firestore.instance.collection("Users2").document(_donorUser.documentID).updateData({
+                                  "Amount":temp_amount,
+                                });
+                                
+                                  Firestore.instance.collection("Total").document("Total").updateData({
+                                    "Total":widget.balance-inputValue,
+                                  });
                                   
+                                Firestore.instance.collection("Pipeline").document(widget._recieveruser.documentID).updateData({
+                                  "Amount":amount,
+                                });
+                                Firestore.instance.collection("MyZakat").document(_donorUser.documentID).setData({"1":1});
+                                Firestore.instance.collection("MyZakat").document(_donorUser.documentID).collection("MyPayments").document().setData({
+                                  "timestamp":DateTime.now(),
+                                  "Amount":inputValue,
+                                  "Name":widget._recieveruser["FullName"],
+                                  "PaymentDate":DateTime.now().toString().substring(0,10),
+                                  
+                                });
+                                Firestore.instance.collection("DonorZakat").document().setData({
+                                  "DonorName":_donorUser["Full Name"],
+                                  "timestamp":DateTime.now(),
+                                  "Amount":inputValue,
+                                  "RecieverName":widget._recieveruser["FullName"],
+                                  "PaymentDate":DateTime.now().toString().substring(0,10),
+                                  "fcm":_donorUser["token"],
+                                });
+
+                                Navigator.of(context).pop();
+
+                                }
+                                else{
+                                  Navigator.of(context).pop();
+                                }  
+                                if(amount<=0){
+                                  
+                                  Firestore.instance.collection("Pipeline").document(widget._recieveruser.documentID).delete();
+                                  Navigator.of(context).push(MaterialPageRoute(builder: (context) =>Home())); 
+                                }
+
+                                }
+                                
+                                
+                                );
+
+                                              
                     
                     
-                  },
-                )
-              ])
-            ],
-          );
-        });
+                                              },
+                                            )
+                                          ])
+                                        ],
+                                      );
+                                    });
                     
-                  }, child: Text("PAY",style: TextStyle(fontSize: 20),),),
+                  }, child: Text("PAY",style: TextStyle(fontSize: 20),),
+                  
+                  
+                  
+                  ),
          
                 ),
             ),

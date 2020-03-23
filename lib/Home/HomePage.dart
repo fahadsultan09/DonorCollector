@@ -67,7 +67,7 @@ class _HomeState extends State<Home> {
             ListTile(
               
               leading: Icon(Icons.home,color: Colors.white70,),
-              title: Text('HOME',style: TextStyle(color: Colors.white70,)),
+              title: Text('Home',style: TextStyle(color: Colors.white70,)),
               onTap: () {
                 
                 
@@ -78,7 +78,7 @@ class _HomeState extends State<Home> {
             ListTile(
               
               leading: Icon(Icons.swap_horiz,color: Colors.white70,),
-              title: Text('MY FUNDS',style: TextStyle(color: Colors.white70,)),
+              title: Text('Funds',style: TextStyle(color: Colors.white70,)),
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MyFunds()));
               },
@@ -86,7 +86,7 @@ class _HomeState extends State<Home> {
             ListTile(
               
               leading: Icon(Icons.notification_important,color: Colors.white70,),
-              title: Text('MY Reponsibilities ',style: TextStyle(color: Colors.white70,)),
+              title: Text('Responsibilities',style: TextStyle(color: Colors.white70,)),
               onTap: () {
 
                 Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Reponsibilities()));
@@ -95,7 +95,7 @@ class _HomeState extends State<Home> {
             ListTile(
               
               leading: Icon(Icons.monetization_on,color: Colors.white70,),
-              title: Text('PAYMENTS BY DONOR',style: TextStyle(color: Colors.white70,)),
+              title: Text('Funds History',style: TextStyle(color: Colors.white70,)),
               onTap: () {
 
                 Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MyDonorPayments()));
@@ -104,7 +104,7 @@ class _HomeState extends State<Home> {
             ListTile(
               
               leading: Icon(Icons.monetization_on,color: Colors.white70,),
-              title: Text('PAYMENTS TO RECIEVER',style: TextStyle(color: Colors.white70,)),
+              title: Text('Payments to Reciever',style: TextStyle(color: Colors.white70,)),
               onTap: () {
 
                 Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MyRecieverPayments()));

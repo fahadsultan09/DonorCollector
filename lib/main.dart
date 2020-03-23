@@ -22,3 +22,15 @@ class MyApp extends StatelessWidget {
   }
 }
 
+
+//Due date  Funds
+// purpose of Fund
+// Member Needed --> Purpose
+// Due Date dalni pare gi
+
+// Monthly or 1 time
+
+// Cap All
+// pyament by donor =====> Fund history
+// Payment To Responsibilty =======> Responsibility 
+// Rename

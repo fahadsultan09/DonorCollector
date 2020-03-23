@@ -4,6 +4,7 @@
 import 'package:collector/Reponsibilities/AddReponsibilities2.dart';
 import 'package:collector/Reponsibilities/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:toast/toast.dart';
 
 class AddReponsibilities extends StatefulWidget {
   @override
@@ -12,10 +13,10 @@ class AddReponsibilities extends StatefulWidget {
 
 class _AddReponsibilitiesState extends State<AddReponsibilities> {
 
-
+  List<String> villageGroupitems = ["Bhawalnagar","Mailsi","Faisalabad","Karachi","Patoki"];
   final _formKey = new GlobalKey<FormState>();
   RecieverClass reciever;
-
+  List<String > familygrp = ["01","02","03","04","05"];
   bool validateAndSave() {
     final form = _formKey.currentState;
     if (form.validate()) {
@@ -160,50 +161,85 @@ class _AddReponsibilitiesState extends State<AddReponsibilities> {
                         focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.green))),
                   ),
-                 SizedBox(height: 10.0),
+                SizedBox(height: 20.0),
 
-                TextFormField(
-                    keyboardType: TextInputType.text,
-                      validator: (input) => input.isEmpty ? 'Family Group Number cannot be empty' : null,
-                      onChanged: (value){
-                           
-                            reciever.familyGroup = value;
-                            
-                          },
-                    decoration: InputDecoration(
-                        
-                        labelText: 'FAMILY GROUP',
-                        labelStyle: TextStyle(
-                            fontFamily: 'Montserrat',
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey),
-                        focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.green))),
-                  ),
-                 SizedBox(height: 10.0),
-                 
-                
+                Container(
+                width: MediaQuery.of(context).size.width-50,
+                height: 60.0,
+                decoration: BoxDecoration(
 
-                TextFormField(
-                    keyboardType: TextInputType.text,
-                      validator: (input) => input.isEmpty ? 'VILLAGE GROUP cannot be empty' : null,
-                      onChanged: (value){
-                           
-                            reciever.villageGroup = value;
-                            
-                          },
-                    decoration: InputDecoration(
+                    borderRadius: BorderRadius.circular(20.0),
+                    border: Border.all(color: Colors.blueGrey),
+                ),
+                child : DropdownButtonHideUnderline(
+
+                  child: ButtonTheme(
+                    
+                    alignedDropdown: true,
+                    child: new DropdownButton<String>(
+                      // value: user.villageGroup.toString(),
+                      items: familygrp.map((lable) {
+                        return new DropdownMenuItem<String>(
+                          value: lable,
+
+                          child: new Text(lable),
+                        );
+                      }).toList(),
+                      hint: Text('Family Group'),
+                      onChanged: (value) {
+                        setState((){
+                          reciever.familyGroup = value;
+                          Toast.show(reciever.familyGroup+" selected", context,
+                    duration: Toast.LENGTH_LONG,
+                    gravity: Toast.BOTTOM,
+                    backgroundColor: Colors.green[500]);
+                        });
                         
-                        labelText: 'VILLAGE GROUP',
-                        labelStyle: TextStyle(
-                            fontFamily: 'Montserrat',
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey),
-                        focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.green))),
+                      },
+                    ),
                   ),
-                 SizedBox(height: 10.0),
-                
+              ),
+              ),
+             SizedBox(height: 20.0),
+
+                Container(
+                width: MediaQuery.of(context).size.width-50,
+                height: 60.0,
+                decoration: BoxDecoration(
+
+                    borderRadius: BorderRadius.circular(20.0),
+                    border: Border.all(color: Colors.blueGrey),
+                ),
+                child : DropdownButtonHideUnderline(
+
+                  child: ButtonTheme(
+                    
+                    alignedDropdown: true,
+                    child: new DropdownButton<String>(
+                      // value: user.villageGroup.toString(),
+                      items: villageGroupitems.map((lable) {
+                        return new DropdownMenuItem<String>(
+                          value: lable,
+
+                          child: new Text(lable),
+                        );
+                      }).toList(),
+                      hint: Text('Village Group'),
+                      onChanged: (value) {
+                        setState((){
+                          reciever.villageGroup = value;
+                          Toast.show(reciever.villageGroup+" selected", context,
+                    duration: Toast.LENGTH_LONG,
+                    gravity: Toast.BOTTOM,
+                    backgroundColor: Colors.green[500]);
+                        });
+                        
+                      },
+                    ),
+                  ),
+              ),
+              ),
+               SizedBox(height: 20.0),
 
                   SizedBox(height: 50.0),
 

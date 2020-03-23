@@ -5,6 +5,7 @@ import 'package:collector/Home/HomePage.dart';
 
 import 'package:collector/Reponsibilities/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:toast/toast.dart';
 
 class AddReponsibilities2 extends StatefulWidget {
 
@@ -16,6 +17,7 @@ class AddReponsibilities2 extends StatefulWidget {
 }
 
 class _AddReponsibilities2State extends State<AddReponsibilities2> {
+    List<String> responsibilityType = ["Stationary Type", "Business Support"];
   String gender = "Male";
   RecieverClass reciever = new RecieverClass();
   _AddReponsibilities2State(this.reciever);
@@ -45,9 +47,9 @@ if(validateAndSave()){
      "Gender":reciever.gender,
      "Reference":reciever.reference,
      "StatusOfReference":reciever.statusOfReference,
-    //  "DueDate":reciever.dueDate,
+     "DueDay":reciever.dueDay,
      "AccountNumber":reciever.accountNumber,
-     "MemberNeeded":reciever.memberNeeded,
+     "ResponsibiltyType":reciever.responsibiltyType,
     //  "Days":reciever.days
   });  
 
@@ -113,33 +115,30 @@ if(validateAndSave()){
                   ),
                   
                 
-                 SizedBox(height: 10.0),
-
                  
-                  
-                    
-                
-//               TextFormField(
-//                     keyboardType: TextInputType.number,
-//                       validator: (input) => input.isEmpty ? 'This cannot be empty' : null,
-//                       onChanged: (value){
+                 SizedBox(height: 10.0),
+                 
+
+                     TextFormField(
+                    keyboardType: TextInputType.text,
+                      validator: (input) => input.isEmpty ? 'Due Day cannot be empty' : null,
+                      onChanged: (value){
                            
-//                             reciever.days = int.parse(value);
+                            widget.reciever.dueDay = int.parse(value);
                              
-//                           },
-//                     decoration: InputDecoration(
-//                         hintText: "INFORM BEFORE HOW MANY DAYS OF THE DUE DATE",
-//                         labelText: 'INFORM DAY',
-//                         labelStyle: TextStyle(
-//                             fontFamily: 'Montserrat',
-//                             fontWeight: FontWeight.bold,
-//                             color: Colors.grey),
-//                         focusedBorder: UnderlineInputBorder(
-//                             borderSide: BorderSide(color: Colors.green))),
-//                   ),
+                          },
+                    decoration: InputDecoration(
+                        
+                        labelText: 'DUE DAY (1-31)',
+                        labelStyle: TextStyle(
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey),
+                        focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.green))),
+                  ),
 
-// SizedBox(height: 10.0),
-
+ SizedBox(height: 10.0),
                  
                    Container(
                 width: MediaQuery.of(context).size.width-50,
@@ -207,24 +206,45 @@ if(validateAndSave()){
                   ),
                  SizedBox(height: 10.0),        
 
-      TextFormField(
-                    keyboardType: TextInputType.text,
-                      validator: (input) => input.isEmpty ? 'MEMBER  cannot be empty' : null,
-                      onChanged: (value){
-                           
-                            reciever.memberNeeded = value;
-                             
-                          },
-                    decoration: InputDecoration(
+SizedBox(height: 20.0),
+
+                Container(
+                width: MediaQuery.of(context).size.width-50,
+                height: 60.0,
+                decoration: BoxDecoration(
+
+                    borderRadius: BorderRadius.circular(20.0),
+                    border: Border.all(color: Colors.blueGrey),
+                ),
+                child : DropdownButtonHideUnderline(
+
+                  child: ButtonTheme(
+                    
+                    alignedDropdown: true,
+                    child: new DropdownButton<String>(
+                      // value: user.villageGroup.toString(),
+                      items: responsibilityType.map((lable) {
+                        return new DropdownMenuItem<String>(
+                          value: lable,
+
+                          child: new Text(lable),
+                        );
+                      }).toList(),
+                      hint: Text('RESPONSIBILITY TYPE'),
+                      onChanged: (value) {
+                        setState((){
+                          widget.reciever.responsibiltyType = value;
+                          Toast.show(widget.reciever.responsibiltyType+" selected", context,
+                    duration: Toast.LENGTH_LONG,
+                    gravity: Toast.BOTTOM,
+                    backgroundColor: Colors.blue);
+                        });
                         
-                        labelText: 'MEMBER NEEDED',
-                        labelStyle: TextStyle(
-                            fontFamily: 'Montserrat',
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey),
-                        focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.green))),
+                      },
+                    ),
                   ),
+              ),
+              ),
                  SizedBox(height: 10.0),
            
                 
