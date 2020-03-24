@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collector/Donors/Donors.dart';
 import 'package:collector/Home/TransferAmount.dart';
 import 'package:collector/Donors/DonorPayments.dart';
-import 'package:collector/Reponsibilities/RecieverPayments.dart';
+import 'package:collector/Reponsibilities/ResponsibiltyPayments.dart';
 import 'package:collector/Reponsibilities/Reponsibilities.dart';
 import 'package:collector/Reponsibilities/utils.dart';
 

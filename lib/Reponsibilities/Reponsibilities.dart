@@ -61,97 +61,107 @@ class ReponsibilitiesState extends State<Reponsibilities> {
                      
                         showDialog(context: context,builder: (context){
 
-                      return Center(
-                        child: SimpleDialog(
+                                                          return Center(
+                                                            child: SimpleDialog(
 
-                          title: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                            Text("RECIEVER"),
-                            
-  
-                            
-                            SizedBox.fromSize(
-                              size: Size(56, 56), 
-                              child: ClipOval(
-                                child: Material(
-                                  color: Colors.red, 
-                                  child: InkWell(
-                                    splashColor: Colors.blueGrey, 
-                                    onTap: () {
-                                      Navigator.of(context).pop();
+                                                              title: Row(
+                                                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                children: <Widget>[
+                                                                Text("RECIEVER"),
+                                                                
+                                      
+                                                                
+                                                                SizedBox.fromSize(
+                                                                  size: Size(56, 56), 
+                                                                  child: ClipOval(
+                                                                    child: Material(
+                                                                      color: Colors.red, 
+                                                                      child: InkWell(
+                                                                        splashColor: Colors.blueGrey, 
+                                                                        onTap: () {
+                                                                          Navigator.of(context).pop();
 
-                                      Firestore.instance.collection("Reciever").document(user.documentID).delete();
-                                      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>Home()), (Route<dynamic> route) => false);
+                                                                          Firestore.instance.collection("Reciever").document(user.documentID).delete();
+                                                                          Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>Home()), (Route<dynamic> route) => false);
 
-                                    
-                                    }, 
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Icon(Icons.delete,size: 20.0,), 
-                                        Text("Delete"), 
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],),
-                          children: <Widget>[
+                                                                        
+                                                                        }, 
+                                                                        child: Column(
+                                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                                          children: <Widget>[
+                                                                            Icon(Icons.delete,size: 20.0,), 
+                                                                            Text("Delete"), 
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ],),
+                                                              children: <Widget>[
 
-                              Container(
-                                padding: EdgeInsets.only(right: 10.0,left: 10.0),
-         
-                                height: MediaQuery.of(context).size.height /2,
-                                width: MediaQuery.of(context).size.width-5,
+                                                                  Container(
+                                                                    padding: EdgeInsets.only(right: 10.0,left: 10.0),
+                                            
+                                                                    height: MediaQuery.of(context).size.height /2,
+                                                                    width: MediaQuery.of(context).size.width-5,
 
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
+                                                                    child: Column(
+                                                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                                      children: <Widget>[
 
-                                    Row(
-                                      children: <Widget>[
-                                        Text("Name:   ",style: TextStyle(fontSize: 16,fontFamily: 'Montserrat',fontWeight: FontWeight.bold),),
-                                    Text(user["FullName"],style: TextStyle(fontSize: 20,fontFamily: 'Montserrat',fontWeight: FontWeight.bold),)
-                                      ],
-                                    ),
-                                     Row(
-                                      children: <Widget>[
-                                        Text("Father Name:  ",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold,fontFamily: 'Montserrat'),),
-                                    Text(user["FatherName"],style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,fontFamily: 'Montserrat'),)
-                                      ],
-                                    ),
-                                     Row(
-                                      children: <Widget>[
-                                        Text("Due Amount per. Month: ",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold,fontFamily: 'Montserrat'),),
-                                    Text("Rs. "+user["Amount"].toString(),style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,fontFamily: 'Montserrat'),)
-                                      ],
-                                    ),
-                                     Row(
-                                      children: <Widget>[
-                                        Text("Due Day: ",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold,fontFamily: 'Montserrat'),),
-                                    Text(user["DueDay"].toString(),style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,fontFamily: 'Montserrat'),)
-                                      ],
-                                    ),
-                                     Row(
-                                      children: <Widget>[
-                                        Text("Phone: ",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold,fontFamily: 'Montserrat'),),
-                                    Text(user["Phone"],style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,fontFamily: 'Montserrat'),)
-                                      ],
-                                    )
+                                                                        Row(
+                                                                          children: <Widget>[
+                                                                            Text("Name:   ",style: TextStyle(fontSize: 16,fontFamily: 'Montserrat',fontWeight: FontWeight.bold),),
+                                                                        Text(user["FullName"],style: TextStyle(fontSize: 16,fontFamily: 'Montserrat',fontWeight: FontWeight.bold),)
+                                                                          ],
+                                                                        ),
+                                                                        Row(
+                                                                          children: <Widget>[
+                                                                            Text("Father Name:  ",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold,fontFamily: 'Montserrat'),),
+                                                                        Text(user["FatherName"],style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold,fontFamily: 'Montserrat'),)
+                                                                          ],
+                                                                        ),
+                                                                        Row(
+                                                                          children: <Widget>[
+                                                                            Text("Due Amount per. Month: ",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold,fontFamily: 'Montserrat'),),
+                                                                        Text("Rs. "+user["Amount"].toString(),style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold,fontFamily: 'Montserrat'),)
+                                                                          ],
+                                                                        ),
+                                                                        Row(
+                                                                          children: <Widget>[
+                                                                            Text("Due Day: ",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold,fontFamily: 'Montserrat'),),
+                                                                        Text(user["DueDay"].toString(),style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold,fontFamily: 'Montserrat'),)
+                                                                          ],
+                                                                        ),
+                                                                        Row(
+                                                                          children: <Widget>[
+                                                                            Text("Purpose: ",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold,fontFamily: 'Montserrat'),),
+                                                                        Text(user["ResponsibiltyType"].toString(),style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold,fontFamily: 'Montserrat'),)
+                                                                          ],
+                                                                        ),
+                                                                        Row(
+                                                                          children: <Widget>[
+                                                                            Text("Phone: ",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold,fontFamily: 'Montserrat'),),
+                                                                        Text(user["Phone"],style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold,fontFamily: 'Montserrat'),)
+                                                                          ],
+                                                                        )
 
-                                    
-                                  ],
-                                ),
-                              )
+                                                                        
+                                                                      ],
+                                                                    ),
+                                                                  )
 
-                          ],
-                        ),
-                      );
+                                                              ],
+                                                            ),
+                                                          );
+                                                          
 
-                  });
+  }
+                  
+                  
+                  );
 
 
                     },

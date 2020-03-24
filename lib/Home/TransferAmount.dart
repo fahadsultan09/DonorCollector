@@ -227,12 +227,14 @@ class transferAmountState extends State<transferAmount> {
                                   "DonorName":_donorUser["Full Name"],
                                   "timestamp":DateTime.now(),
                                   "Amount":inputValue,
-                                  "RecieverName":widget._recieveruser["FullName"],
+                                  "Name":widget._recieveruser["FullName"],
                                   "PaymentDate":DateTime.now().toString().substring(0,10),
                                   "fcm":_donorUser["token"],
+                                  "ResponsibiltyType":widget._recieveruser["ResponsibiltyType"],
                                 });
 
-                                Navigator.of(context).pop();
+                                  Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+    Home()), (Route<dynamic> route) => false); 
 
                                 }
                                 else{
