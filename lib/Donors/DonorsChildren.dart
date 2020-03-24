@@ -193,6 +193,7 @@ class _childrenListState extends State<childrenList> {
                         "timestamp":DateTime.now(),
                     });
                     Firestore.instance.collection("Payment").document(user.documentID).setData({
+                        "Name":user["Full Name"],
                         "document":user.documentID,
                         "fcm":user["token"],
                     });                 
