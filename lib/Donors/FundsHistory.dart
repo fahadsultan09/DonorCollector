@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 
 
 
-class MyDonorPayments extends StatefulWidget {
+class FundsHistory extends StatefulWidget {
   @override
-  _MyDonorPaymentsState createState() => _MyDonorPaymentsState();
+  _FundsHistoryState createState() => _FundsHistoryState();
 }
 
-class _MyDonorPaymentsState extends State<MyDonorPayments> {
+class _FundsHistoryState extends State<FundsHistory> {
 
 List<String> month = [
         "January",
@@ -23,12 +23,13 @@ List<String> month = [
         "September",
         "October",
         "November",
-        "December"];
+        "December"
+        ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.black,title: Text("PAYMENTS BY DONOR"),
+            backgroundColor: Colors.black,title: Text("Funds History"),
             ),
 
               body: Container(

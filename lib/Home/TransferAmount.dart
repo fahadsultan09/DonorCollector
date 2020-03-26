@@ -8,8 +8,7 @@ import 'package:flutter/material.dart';
  
 class transferAmount extends StatefulWidget {
   
-  transferAmount(this._recieveruser,this.balance) : super();
-  int balance = 0;
+  transferAmount(this._recieveruser) : super();
   final String title = "PAYMENTS";
   DocumentSnapshot _recieveruser;
   @override
@@ -33,18 +32,7 @@ class transferAmountState extends State<transferAmount> {
   }
   @override
   void initState() {
-     Firestore.instance.collection("Total").document("Total").get().then((document){
 
-      if(document['Total']!=null)
-      {
-        setState(() {
-          widget.balance = document['Total'];
-        });
-        
-      }
-      
-
-    });
     amount = widget._recieveruser["Amount"];
     
       super.initState();
@@ -207,11 +195,7 @@ class transferAmountState extends State<transferAmount> {
                                 Firestore.instance.collection("Users2").document(_donorUser.documentID).updateData({
                                   "Amount":temp_amount,
                                 });
-                                
-                                  Firestore.instance.collection("Total").document("Total").updateData({
-                                    "Total":widget.balance-inputValue,
-                                  });
-                                  
+                
                                 Firestore.instance.collection("Pipeline").document(widget._recieveruser.documentID).updateData({
                                   "Amount":amount,
                                 });

@@ -2,7 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collector/Donors/Donors.dart';
 import 'package:collector/Home/TransferAmount.dart';
-import 'package:collector/Donors/DonorPayments.dart';
+import 'package:collector/Donors/FundsHistory.dart';
 import 'package:collector/Reponsibilities/ResponsibiltyPayments.dart';
 import 'package:collector/Reponsibilities/Reponsibilities.dart';
 import 'package:collector/Reponsibilities/utils.dart';
@@ -17,27 +17,43 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  
+  int amount = 0;
+  List<DocumentSnapshot> balancedocuments;
+  // List<int> _items = [];
+  Future<void> getBalance() async{
+   final QuerySnapshot result = await Firestore.instance.collection("Users2").getDocuments();
+  balancedocuments = result.documents.toList();
+  balancedocuments.forEach((data){
+
+    if(data["Amount"] is int)
+    {
+      amount = amount + data["Amount"];
+    }
+    
+  });
+  }
   @override
   void initState() { 
     super.initState();
-      Firestore.instance.collection("Total").document("Total").get().then((document){
 
-      if(document['Total']!=null)
-      {
-        setState(() {
-          amount = document['Total'];
-        });
+    getBalance();
+    //   Firestore.instance.collection("Total").document("Total").get().then((document){
+
+    //   if(document['Total']!=null)
+    //   {
+    //     setState(() {
+    //       amount = document['Total'];
+    //     });
         
-      }
-      else{
-        amount = 0;
-      }
+    //   }
+    //   else{
+    //     amount = 0;
+    //   }
       
 
-    });
+    // });
   }
-  int amount = 0;
+
   List<DocumentSnapshot> documents;
   @override
   Widget build(BuildContext context) {
@@ -98,7 +114,7 @@ class _HomeState extends State<Home> {
               title: Text('Funds History',style: TextStyle(color: Colors.white70,)),
               onTap: () {
 
-                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MyDonorPayments()));
+                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>FundsHistory()));
               },
             ),
             ListTile(
@@ -180,7 +196,7 @@ class _HomeState extends State<Home> {
                                 return GestureDetector(
                                     onTap: (){
                 
-                                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>transferAmount(user,amount)));
+                                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>transferAmount(user)));
                                     },
                               child: Container(
                                 height: 100.0,
