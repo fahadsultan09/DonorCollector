@@ -155,9 +155,9 @@ class transferAmountState extends State<transferAmount> {
                                     ),
                                   ),
                                 ),
-                                SizedBox(
-                                  height: 20.0,
-                                ),
+                                // SizedBox(
+                                //   height: 20.0,
+                                // ),
                                 new Row(children: <Widget>[
                                   new FlatButton(
                                     child: new Text('CANCEL'),
@@ -201,6 +201,7 @@ class transferAmountState extends State<transferAmount> {
                                               .setData({
                                             "timestamp": DateTime.now(),
                                             "Amount": inputValue,
+                                            "Purpose":widget._recieveruser["ResponsibiltyType"],
                                             "Name": widget
                                                 ._recieveruser["FullName"],
                                             "PaymentDate": DateTime.now()

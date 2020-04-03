@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:collector/Donors/Donors.dart';
+import 'package:collector/Funds/Funds(Father).dart';
 import 'package:collector/Home/TransferAmount.dart';
-import 'package:collector/Donors/FundsHistory.dart';
-import 'package:collector/Reponsibilities/ResponsibiltyPayments.dart';
+import 'package:collector/Funds/FundsHistory.dart';
+import 'package:collector/Reponsibilities/ResponsibilityHistory.dart';
 import 'package:collector/Reponsibilities/Reponsibilities.dart';
 import 'package:collector/Reponsibilities/utils.dart';
 
@@ -119,10 +119,10 @@ class _HomeState extends State<Home> {
                 ),
                 ListTile(
                   leading: Icon(
-                    Icons.monetization_on,
+                    Icons.history,
                     color: Colors.white70,
                   ),
-                  title: Text('Payments to Reciever',
+                  title: Text('Responsibility History',
                       style: TextStyle(
                         color: Colors.white70,
                       )),
@@ -141,7 +141,7 @@ class _HomeState extends State<Home> {
                         color: Colors.white70,
                       )),
                   trailing:
-                      Text(amount == 0 ? "" : "Rs.   " + amount.toString(),
+                      Text(amount == 0 ? "Rs. 0" : "Rs.   " + amount.toString(),
                           style: TextStyle(
                             color: Colors.white70,
                           )),
@@ -201,12 +201,12 @@ class _HomeState extends State<Home> {
       return ListView.builder(
         itemCount: snapshot.data.documents.length,
         itemBuilder: (context, index) {
-          DocumentSnapshot user = snapshot.data.documents[index];
+          DocumentSnapshot responsibilityUser = snapshot.data.documents[index];
 
           return GestureDetector(
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => transferAmount(user)));
+                  builder: (context) => transferAmount(responsibilityUser)));
             },
             child: Container(
               height: 100.0,
@@ -226,16 +226,16 @@ class _HomeState extends State<Home> {
                   child: ListTile(
                       dense: true,
                       title: Text(
-                        user["FullName"] != null ? user["FullName"] : "",
+                        responsibilityUser["FullName"] != null ? responsibilityUser["FullName"] : "",
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w800,
                         ),
                         textAlign: TextAlign.left,
                       ),
-                      subtitle: user["AccountNumber"] != null
+                      subtitle: responsibilityUser["AccountNumber"] != null
                           ? Text(
-                              "A/C no. : " + user["AccountNumber"],
+                              "A/C no. : " + responsibilityUser["AccountNumber"],
                               style: TextStyle(fontSize: 10.0),
                             )
                           : Text(
@@ -247,8 +247,8 @@ class _HomeState extends State<Home> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text(
-                            "Rs. " + user["Amount"].toString() != null
-                                ? user["Amount"].toString()
+                            "Rs. " + responsibilityUser["Amount"].toString() != null
+                                ? responsibilityUser["Amount"].toString()
                                 : "",
                             style: TextStyle(
                               fontSize: 15,

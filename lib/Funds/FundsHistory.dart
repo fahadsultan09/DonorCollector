@@ -26,6 +26,7 @@ class _FundsHistoryState extends State<FundsHistory> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: Colors.black,
         title: Text("Funds History"),
       ),

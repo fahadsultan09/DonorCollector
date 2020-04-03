@@ -38,6 +38,7 @@ class _AddChildrenFundsState extends State<AddChildrenFunds> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        
         backgroundColor: Colors.black,
         centerTitle: true,
         title: Text(
@@ -263,7 +264,7 @@ class _AddChildrenFundsState extends State<AddChildrenFunds> {
     } else if (snapshot.connectionState == ConnectionState.done &&
         !snapshot.hasData) {
       return Center(
-        child: Text("No Donors found."),
+        child: Text("No Childrens found."),
       );
     } else {
       return Center(child: CircularProgressIndicator());

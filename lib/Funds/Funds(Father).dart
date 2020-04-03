@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:collector/Donors/DonorsChildren.dart';
+import 'package:collector/Funds/CreateFunds.dart';
+import 'package:collector/Funds/Funds(Children).dart';
 import 'package:collector/Reponsibilities/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,20 @@ class _MyFundsState extends State<MyFunds> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.blueGrey,
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => CreateFunds()));
+        },
+        tooltip: 'Add Donors',
+        child: new Icon(
+          Icons.add,
+          size: 25,
+        ),
+      ),
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: Colors.black,
         title: Text(
           "FUNDS (FATHER)",

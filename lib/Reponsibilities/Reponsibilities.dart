@@ -18,7 +18,7 @@ class ReponsibilitiesState extends State<Reponsibilities> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.blueGrey,
         onPressed: () {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => AddReponsibilities()));
@@ -26,10 +26,11 @@ class ReponsibilitiesState extends State<Reponsibilities> {
         tooltip: 'Add Reponsibilities',
         child: new Icon(
           Icons.add,
-          size: 40,
+          size: 25,
         ),
       ),
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: Colors.black,
         title: Text(widget.title),
       ),
@@ -38,7 +39,7 @@ class ReponsibilitiesState extends State<Reponsibilities> {
             gradient: LinearGradient(
                 begin: Alignment.topRight,
                 end: Alignment.bottomLeft,
-                colors: [Colors.black, Colors.blue[900]])),
+                colors: [Colors.black, backgroundcolor])),
         padding: EdgeInsets.all(5),
         child: FutureBuilder(
           future: Firestore.instance.collection("Reciever").getDocuments(),

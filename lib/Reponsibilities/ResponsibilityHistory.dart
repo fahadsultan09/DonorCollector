@@ -12,15 +12,16 @@ class _MyRecieverPaymentsState extends State<MyRecieverPayments> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: Colors.black,
-        title: Text("PAYMENTS TO RECIEVERS"),
+        title: Text("Responsibility History"),
       ),
       body: Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(
                 begin: Alignment.topRight,
                 end: Alignment.bottomLeft,
-                colors: [Colors.black, Colors.blue[900]])),
+                colors: [Colors.black, backgroundcolor])),
         padding: EdgeInsets.all(5),
         child: FutureBuilder(
           future: Firestore.instance

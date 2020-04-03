@@ -12,6 +12,7 @@ dependencies:
   cloud_firestore:
   toast:
   firebase_messaging:
+  firebase_auth:
   # gradient_app_bar:
 
 dev_dependencies:
