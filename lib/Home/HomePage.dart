@@ -19,12 +19,15 @@ class _HomeState extends State<Home> {
   List<DocumentSnapshot> balancedocuments;
 
   Future<void> getBalance() async {
+    
     final QuerySnapshot result =
         await Firestore.instance.collection("Users2").getDocuments();
     balancedocuments = result.documents.toList();
     balancedocuments.forEach((data) {
       if (data["Amount"] is int) {
-        amount = amount + data["Amount"];
+       setState(() {
+          amount = amount + data["Amount"];
+       });
       }
     });
   }
@@ -32,9 +35,9 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-
     getBalance();
   }
+  
 
   List<DocumentSnapshot> documents;
   @override
@@ -226,7 +229,9 @@ class _HomeState extends State<Home> {
                   child: ListTile(
                       dense: true,
                       title: Text(
-                        responsibilityUser["FullName"] != null ? responsibilityUser["FullName"] : "",
+                        responsibilityUser["FullName"] != null
+                            ? responsibilityUser["FullName"]
+                            : "",
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w800,
@@ -235,7 +240,8 @@ class _HomeState extends State<Home> {
                       ),
                       subtitle: responsibilityUser["AccountNumber"] != null
                           ? Text(
-                              "A/C no. : " + responsibilityUser["AccountNumber"],
+                              "A/C no. : " +
+                                  responsibilityUser["AccountNumber"],
                               style: TextStyle(fontSize: 10.0),
                             )
                           : Text(
@@ -247,9 +253,9 @@ class _HomeState extends State<Home> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text(
-                            "Rs. " + responsibilityUser["Amount"].toString() != null
-                                ? responsibilityUser["Amount"].toString()
-                                : "",
+                            responsibilityUser["Amount"].toString() !=
+                                    null ? "Rs.  "+ responsibilityUser["Amount"].toString(): ""
+                                ,
                             style: TextStyle(
                               fontSize: 15,
                               color: Colors.green,

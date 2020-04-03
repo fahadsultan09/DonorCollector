@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collector/Funds/CreateFunds2.dart';
 import 'package:collector/Models/UserClass.dart';
 import 'package:flutter/material.dart';
-import 'package:toast/toast.dart';
 
 class CreateFunds extends StatefulWidget {
   @override
@@ -10,42 +9,15 @@ class CreateFunds extends StatefulWidget {
 }
 
 class _CreateFundsState extends State<CreateFunds> {
-  String villageGroup = "SELECT THE OPTION";
+ 
   User user;
   bool disable = false;
   List<DocumentSnapshot> documents;
-  String selected;
   bool obsureTextValue = true;
-
-  Future<void> getReciever() async {
-    final QuerySnapshot result =
-        await Firestore.instance.collection("Users").getDocuments();
-    documents = result.documents.toList();
-    documents.forEach((data) {
-      _items.add(data.documentID.toString());
-    });
-  }
-
-  void _ChangeText() {
-    setState(() {
-      if (obsureTextValue) {
-        obsureTextValue = false;
-      } else {
-        obsureTextValue = true;
-      }
-    });
-  }
-
   List<String> _items = [];
-  String gender = "Male";
   List<String> _genderitems = ["Male", "Female"];
-  List<String> villageGroupitems = [
-    "Bhawalnagar",
-    "Mailsi",
-    "Faisalabad",
-    "Karachi",
-    "Patoki"
-  ];
+  String fatherNameselected,genderSelected,villageSelected,familySelected;
+  List<String> villageGroupitems = ["Bhawalnagar","Mailsi","Faisalabad","Karachi","Patoki"];
   List<String> familygrp = ["01", "02", "03", "04", "05"];
   final _formKey = new GlobalKey<FormState>();
 
@@ -69,11 +41,32 @@ class _CreateFundsState extends State<CreateFunds> {
   @override
   void initState() {
     user = new User();
-    getReciever();
 
+    getReciever();
     super.initState();
   }
 
+  Future<void> getReciever() async {
+    final QuerySnapshot result =
+        await Firestore.instance.collection("Users").getDocuments();
+    documents = result.documents.toList();
+    documents.forEach((data) {
+      _items.add(data.documentID.toString());
+    });
+  }
+
+  void _ChangeText() {
+    setState(() {
+      if (obsureTextValue) {
+        obsureTextValue = false;
+      } else {
+        obsureTextValue = true;
+      }
+    });
+  }
+  
+  
+  
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -159,102 +152,129 @@ class _CreateFundsState extends State<CreateFunds> {
                               borderSide: BorderSide(color: Colors.green))),
                     ),
                     SizedBox(height: 20.0),
-                    Container(
-                      width: MediaQuery.of(context).size.width - 50,
+
+                    Container(width: MediaQuery.of(context).size.width - 100,
                       height: 60.0,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.0),
                         border: Border.all(color: Colors.blueGrey),
                       ),
-                      child: DropdownButtonHideUnderline(
-                        child: ButtonTheme(
-                          alignedDropdown: true,
-                          child: new DropdownButton<String>(
-                            value: gender,
-                            items: _genderitems.map((lable) {
-                              return new DropdownMenuItem<String>(
-                                value: lable,
-                                child: new Text(lable),
-                              );
-                            }).toList(),
-                            hint: Text('Gender'),
-                            onChanged: (value) {
-                              setState(() {
-                                user.gender = value;
+                          child: DropdownButtonHideUnderline(
+                            child: ButtonTheme(
+                              alignedDropdown: true,
+                              child: new DropdownButton<String>(
+                                value: genderSelected,
+                                items: _genderitems.map((lable) {
+                                  return new DropdownMenuItem<String>(
+                                    value: lable,
+                                    child: new Text(lable),
+                                  );
+                                }).toList(),
+                                hint: Text('Gender'),
+                                onChanged: (value) {
+                                  setState(() {
+                                    genderSelected = value;
+                                    user.gender = genderSelected;
+                                    print(user.gender);
+                                  });
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
 
-                                print(user.gender);
-                              });
-                            },
-                          ),
-                        ),
-                      ),
-                    ),
+                    // Container(
+                    //   width: MediaQuery.of(context).size.width - 50,
+                    //   height: 60.0,
+                    //   decoration: BoxDecoration(
+                    //     borderRadius: BorderRadius.circular(10.0),
+                    //     border: Border.all(color: Colors.blueGrey),
+                    //   ),
+                    //   child: DropdownButtonHideUnderline(
+                    //     child: ButtonTheme(
+                    //       alignedDropdown: true,
+                    //       child: new DropdownButton<String>(
+                    //         value: gender,
+                    //         items: _genderitems.map((lable) {
+                    //           return new DropdownMenuItem<String>(
+                    //             value: lable,
+                    //             child: new Text(lable),
+                    //           );
+                    //         }).toList(),
+                    //         hint: Text('Gender'),
+                    //         onChanged: (value) {
+                    //           setState(() {
+                    //             user.gender = value;
+
+                    //             print(user.gender);
+                    //           });
+                    //         },
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+
                     SizedBox(height: 20.0),
-                    Container(
-                      width: MediaQuery.of(context).size.width - 50,
+                    Container(width: MediaQuery.of(context).size.width - 100,
                       height: 60.0,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20.0),
+                        borderRadius: BorderRadius.circular(10.0),
                         border: Border.all(color: Colors.blueGrey),
                       ),
-                      child: DropdownButtonHideUnderline(
-                        child: ButtonTheme(
-                          alignedDropdown: true,
-                          child: new DropdownButton<String>(
-                            items: villageGroupitems.map((lable) {
-                              return new DropdownMenuItem<String>(
-                                value: lable,
-                                child: new Text(lable),
-                              );
-                            }).toList(),
-                            hint: Text('Village Group'),
-                            onChanged: (value) {
-                              setState(() {
-                                user.villageGroup = value;
-                                Toast.show(
-                                    user.villageGroup + " selected", context,
-                                    duration: Toast.LENGTH_LONG,
-                                    gravity: Toast.BOTTOM,
-                                    backgroundColor: Colors.green[500]);
-                              });
-                            },
+                          child: DropdownButtonHideUnderline(
+                            child: ButtonTheme(
+                              alignedDropdown: true,
+                              child: new DropdownButton<String>(
+                                value: villageSelected,
+                                items: villageGroupitems.map((lable) {
+                                  return new DropdownMenuItem<String>(
+                                    value: lable,
+                                    child: new Text(lable),
+                                  );
+                                }).toList(),
+                                hint: Text('Village Group'),
+                                onChanged: (value) {
+                                  setState(() {
+                                    villageSelected = value;
+                                    user.villageGroup = villageSelected;
+                                    print(user.villageGroup);
+                                  });
+                                },
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    ),
+
                     SizedBox(height: 20.0),
-                    Container(
-                      width: MediaQuery.of(context).size.width - 50,
+                   Container(width: MediaQuery.of(context).size.width - 100,
                       height: 60.0,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20.0),
+                        borderRadius: BorderRadius.circular(10.0),
                         border: Border.all(color: Colors.blueGrey),
                       ),
-                      child: DropdownButtonHideUnderline(
-                        child: ButtonTheme(
-                          alignedDropdown: true,
-                          child: new DropdownButton<String>(
-                            items: familygrp.map((lable) {
-                              return new DropdownMenuItem<String>(
-                                value: lable,
-                                child: new Text(lable),
-                              );
-                            }).toList(),
-                            hint: Text('Family Group'),
-                            onChanged: (value) {
-                              setState(() {
-                                user.familyGroup = value;
-                                Toast.show(
-                                    user.familyGroup + " selected", context,
-                                    duration: Toast.LENGTH_LONG,
-                                    gravity: Toast.BOTTOM,
-                                    backgroundColor: Colors.green[500]);
-                              });
-                            },
+                          child: DropdownButtonHideUnderline(
+                            child: ButtonTheme(
+                              alignedDropdown: true,
+                              child: new DropdownButton<String>(
+                                value: familySelected,
+                                items: familygrp.map((lable) {
+                                  return new DropdownMenuItem<String>(
+                                    value: lable,
+                                    child: new Text(lable),
+                                  );
+                                }).toList(),
+                                hint: Text('Family Group'),
+                                onChanged: (value) {
+                                  setState(() {
+                                    familySelected = value;
+                                    user.familyGroup = familySelected;
+                                    print(user.familyGroup);
+                                  });
+                                },
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    ),
                     SizedBox(height: 50.0),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -267,7 +287,7 @@ class _CreateFundsState extends State<CreateFunds> {
                             child: ButtonTheme(
                               alignedDropdown: true,
                               child: new DropdownButton<String>(
-                                value: selected,
+                                value: fatherNameselected,
                                 items: _items.map((lable) {
                                   return new DropdownMenuItem<String>(
                                     value: lable,
@@ -277,8 +297,8 @@ class _CreateFundsState extends State<CreateFunds> {
                                 hint: Text('FATHER NAME'),
                                 onChanged: (value) {
                                   setState(() {
-                                    selected = value;
-                                    user.fatherName = selected;
+                                    fatherNameselected = value;
+                                    user.fatherName = fatherNameselected;
                                   });
                                 },
                               ),

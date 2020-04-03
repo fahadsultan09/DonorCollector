@@ -17,8 +17,8 @@ class _MyFundsState extends State<MyFunds> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.blueGrey,
         onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => CreateFunds()));
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => CreateFunds()));
         },
         tooltip: 'Add Donors',
         child: new Icon(

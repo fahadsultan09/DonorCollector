@@ -1,7 +1,6 @@
 import 'package:collector/Reponsibilities/AddReponsibilities2.dart';
 import 'package:collector/Reponsibilities/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:toast/toast.dart';
 
 class AddReponsibilities extends StatefulWidget {
   @override
@@ -10,15 +9,17 @@ class AddReponsibilities extends StatefulWidget {
 
 class _AddReponsibilitiesState extends State<AddReponsibilities> {
   List<String> villageGroupitems = [
-    "Bhawalnagar",
-    "Mailsi",
-    "Faisalabad",
-    "Karachi",
-    "Patoki"
+    "Bhawalnagar","Mailsi","Faisalabad","Karachi","Patoki"
   ];
+  List<String> _genderitems = ["Male", "Female"];
+  String familySelected,villageSelected,genderSelected;
   final _formKey = new GlobalKey<FormState>();
   RecieverClass reciever;
   List<String> familygrp = ["01", "02", "03", "04", "05"];
+
+
+
+
   bool validateAndSave() {
     final form = _formKey.currentState;
     if (form.validate()) {
@@ -39,7 +40,6 @@ class _AddReponsibilitiesState extends State<AddReponsibilities> {
   @override
   void initState() {
     super.initState();
-
     reciever = new RecieverClass();
     reciever.accountNumber = "";
   }
@@ -145,71 +145,95 @@ class _AddReponsibilitiesState extends State<AddReponsibilities> {
                               borderSide: BorderSide(color: Colors.green))),
                     ),
                     SizedBox(height: 20.0),
-                    Container(
-                      width: MediaQuery.of(context).size.width - 50,
+                    Container(width: MediaQuery.of(context).size.width - 100,
                       height: 60.0,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20.0),
+                        borderRadius: BorderRadius.circular(10.0),
                         border: Border.all(color: Colors.blueGrey),
                       ),
-                      child: DropdownButtonHideUnderline(
-                        child: ButtonTheme(
-                          alignedDropdown: true,
-                          child: new DropdownButton<String>(
-                            items: familygrp.map((lable) {
-                              return new DropdownMenuItem<String>(
-                                value: lable,
-                                child: new Text(lable),
-                              );
-                            }).toList(),
-                            hint: Text('Family Group'),
-                            onChanged: (value) {
-                              setState(() {
-                                reciever.familyGroup = value;
-                                Toast.show(
-                                    reciever.familyGroup + " selected", context,
-                                    duration: Toast.LENGTH_LONG,
-                                    gravity: Toast.BOTTOM,
-                                    backgroundColor: Colors.green[500]);
-                              });
-                            },
+                          child: DropdownButtonHideUnderline(
+                            child: ButtonTheme(
+                              alignedDropdown: true,
+                              child: new DropdownButton<String>(
+                                value: genderSelected,
+                                items: _genderitems.map((lable) {
+                                  return new DropdownMenuItem<String>(
+                                    value: lable,
+                                    child: new Text(lable),
+                                  );
+                                }).toList(),
+                                hint: Text('Gender'),
+                                onChanged: (value) {
+                                  setState(() {
+                                    genderSelected = value;
+                                    reciever.gender = genderSelected;
+                                    print(reciever.gender);
+                                  });
+                                },
+                              ),
+                            ),
                           ),
                         ),
+                    SizedBox(height: 20.0,),
+                    Container(width: MediaQuery.of(context).size.width - 100,
+                      height: 60.0,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        border: Border.all(color: Colors.blueGrey),
                       ),
-                    ),
+                          child: DropdownButtonHideUnderline(
+                            child: ButtonTheme(
+                              alignedDropdown: true,
+                              child: new DropdownButton<String>(
+                                value: familySelected,
+                                items: familygrp.map((lable) {
+                                  return new DropdownMenuItem<String>(
+                                    value: lable,
+                                    child: new Text(lable),
+                                  );
+                                }).toList(),
+                                hint: Text('Family Group'),
+                                onChanged: (value) {
+                                  setState(() {
+                                    familySelected = value;
+                                    reciever.familyGroup = familySelected;
+                                    print(reciever.familyGroup);
+                                  });
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
                     SizedBox(height: 20.0),
-                    Container(
-                      width: MediaQuery.of(context).size.width - 50,
+                    Container(width: MediaQuery.of(context).size.width - 100,
                       height: 60.0,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20.0),
+                        borderRadius: BorderRadius.circular(10.0),
                         border: Border.all(color: Colors.blueGrey),
                       ),
-                      child: DropdownButtonHideUnderline(
-                        child: ButtonTheme(
-                          alignedDropdown: true,
-                          child: new DropdownButton<String>(
-                            items: villageGroupitems.map((lable) {
-                              return new DropdownMenuItem<String>(
-                                value: lable,
-                                child: new Text(lable),
-                              );
-                            }).toList(),
-                            hint: Text('Village Group'),
-                            onChanged: (value) {
-                              setState(() {
-                                reciever.villageGroup = value;
-                                Toast.show(reciever.villageGroup + " selected",
-                                    context,
-                                    duration: Toast.LENGTH_LONG,
-                                    gravity: Toast.BOTTOM,
-                                    backgroundColor: Colors.green[500]);
-                              });
-                            },
+                          child: DropdownButtonHideUnderline(
+                            child: ButtonTheme(
+                              alignedDropdown: true,
+                              child: new DropdownButton<String>(
+                                value: villageSelected,
+                                items: villageGroupitems.map((lable) {
+                                  return new DropdownMenuItem<String>(
+                                    value: lable,
+                                    child: new Text(lable),
+                                  );
+                                }).toList(),
+                                hint: Text('Viilage Group'),
+                                onChanged: (value) {
+                                  setState(() {
+                                    villageSelected = value;
+                                    reciever.villageGroup = villageSelected;
+                                    print(reciever.villageGroup);
+                                  });
+                                },
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    ),
                     SizedBox(height: 20.0),
                     SizedBox(height: 50.0),
                     GestureDetector(

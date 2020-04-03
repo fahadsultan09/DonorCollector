@@ -249,18 +249,14 @@ class ReponsibilitiesState extends State<Reponsibilities> {
                 child: ListTile(
                     dense: true,
                     title: Text(
-                      user["FullName"],
+                      "Name: "+user["FullName"],
                       style: TextStyle(
                         fontSize: 17,
                         fontWeight: FontWeight.w800,
                       ),
                       textAlign: TextAlign.left,
                     ),
-                    trailing: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text(
+                    trailing: Text(
                           "Rs ." + user["Amount"].toString(),
                           style: TextStyle(
                             fontSize: 18,
@@ -268,8 +264,7 @@ class ReponsibilitiesState extends State<Reponsibilities> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                      ],
-                    )),
+                    ),
               ),
             ),
           );

@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collector/Home/HomePage.dart';
 import 'package:collector/Reponsibilities/utils.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -14,12 +13,15 @@ class AddChildrenFunds extends StatefulWidget {
 }
 
 class _AddChildrenFundsState extends State<AddChildrenFunds> {
-  String _amount = "", _paymentMode = "", _remarks = "";
+  String _amount = "", _paymentMode = "", _remarks = "",_fcm = "";
   int totalAmount = 0;
-  FirebaseMessaging fcm = FirebaseMessaging();
-
   @override
   void initState() {
+    getTotal();
+    super.initState();
+  }
+  
+  void getTotal() {
     Firestore.instance
         .collection("Total")
         .document("Total")
@@ -31,14 +33,26 @@ class _AddChildrenFundsState extends State<AddChildrenFunds> {
         });
       }
     });
-    super.initState();
   }
 
+ 
+  Future<void> _getUserFCM(uid) async => Firestore.instance
+          .collection('Users2')
+          .document(uid)
+          .get()
+          .then((DocumentSnapshot document) {
+        if (document["token"] != null) {
+          
+          setState(() {
+            _fcm = document["token"].toString();
+          });
+
+        }
+  });
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        
         backgroundColor: Colors.black,
         centerTitle: true,
         title: Text(
@@ -74,6 +88,8 @@ class _AddChildrenFundsState extends State<AddChildrenFunds> {
 
           return GestureDetector(
             onTap: () {
+              _getUserFCM(user.documentID);
+              print(_fcm);
               showDialog(
                   context: context,
                   builder: (context) {
@@ -200,7 +216,7 @@ class _AddChildrenFundsState extends State<AddChildrenFunds> {
                               });
                               Firestore.instance
                                   .collection("DonorPayment")
-                                  .document(user.documentID)
+                                  .document()
                                   .setData({
                                 "Full Name": user["Full Name"],
                                 "DateOfPayment":
@@ -217,7 +233,7 @@ class _AddChildrenFundsState extends State<AddChildrenFunds> {
                                   .setData({
                                 "Name": user["Full Name"],
                                 "document": user.documentID,
-                                "fcm": user["token"],
+                                "fcm": _fcm.toString(),
                               });
                               Navigator.of(context).pushAndRemoveUntil(
                                   MaterialPageRoute(

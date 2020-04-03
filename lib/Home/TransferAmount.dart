@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 class transferAmount extends StatefulWidget {
   transferAmount(this._recieveruser) : super();
-  final String title = "PAYMENTS";
+  final String title = "Payments";
   DocumentSnapshot _recieveruser;
   @override
   transferAmountState createState() => transferAmountState();
@@ -57,6 +57,7 @@ class transferAmountState extends State<transferAmount> {
         ),
       ),
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: Colors.black,
         title: Text(widget.title),
       ),
@@ -155,9 +156,6 @@ class transferAmountState extends State<transferAmount> {
                                     ),
                                   ),
                                 ),
-                                // SizedBox(
-                                //   height: 20.0,
-                                // ),
                                 new Row(children: <Widget>[
                                   new FlatButton(
                                     child: new Text('CANCEL'),
@@ -201,7 +199,8 @@ class transferAmountState extends State<transferAmount> {
                                               .setData({
                                             "timestamp": DateTime.now(),
                                             "Amount": inputValue,
-                                            "Purpose":widget._recieveruser["ResponsibiltyType"],
+                                            "Purpose": widget._recieveruser[
+                                                "ResponsibiltyType"],
                                             "Name": widget
                                                 ._recieveruser["FullName"],
                                             "PaymentDate": DateTime.now()
