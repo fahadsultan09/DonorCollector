@@ -15,7 +15,6 @@ class CreateFunds2 extends StatefulWidget {
 class _CreateFunds2State extends State<CreateFunds2> {
   List<String> responsibilityType = ["Stationary Type", "Business Support"];
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
   int amount = 0;
 
   @override
@@ -234,7 +233,7 @@ class _CreateFunds2State extends State<CreateFunds2> {
                             elevation: 7.0,
                             child: Center(
                               child: Text(
-                                'SIGN UP',
+                                'Submit',
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,

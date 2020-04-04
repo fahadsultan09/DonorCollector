@@ -9,15 +9,20 @@ class CreateFunds extends StatefulWidget {
 }
 
 class _CreateFundsState extends State<CreateFunds> {
- 
   User user;
   bool disable = false;
   List<DocumentSnapshot> documents;
   bool obsureTextValue = true;
   List<String> _items = [];
   List<String> _genderitems = ["Male", "Female"];
-  String fatherNameselected,genderSelected,villageSelected,familySelected;
-  List<String> villageGroupitems = ["Bhawalnagar","Mailsi","Faisalabad","Karachi","Patoki"];
+  String fatherNameselected, genderSelected, villageSelected, familySelected;
+  List<String> villageGroupitems = [
+    "Bhawalnagar",
+    "Mailsi",
+    "Faisalabad",
+    "Karachi",
+    "Patoki"
+  ];
   List<String> familygrp = ["01", "02", "03", "04", "05"];
   final _formKey = new GlobalKey<FormState>();
 
@@ -64,9 +69,7 @@ class _CreateFundsState extends State<CreateFunds> {
       }
     });
   }
-  
-  
-  
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -152,129 +155,98 @@ class _CreateFundsState extends State<CreateFunds> {
                               borderSide: BorderSide(color: Colors.green))),
                     ),
                     SizedBox(height: 20.0),
-
-                    Container(width: MediaQuery.of(context).size.width - 100,
+                    Container(
+                      width: MediaQuery.of(context).size.width - 100,
                       height: 60.0,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.0),
                         border: Border.all(color: Colors.blueGrey),
                       ),
-                          child: DropdownButtonHideUnderline(
-                            child: ButtonTheme(
-                              alignedDropdown: true,
-                              child: new DropdownButton<String>(
-                                value: genderSelected,
-                                items: _genderitems.map((lable) {
-                                  return new DropdownMenuItem<String>(
-                                    value: lable,
-                                    child: new Text(lable),
-                                  );
-                                }).toList(),
-                                hint: Text('Gender'),
-                                onChanged: (value) {
-                                  setState(() {
-                                    genderSelected = value;
-                                    user.gender = genderSelected;
-                                    print(user.gender);
-                                  });
-                                },
-                              ),
-                            ),
+                      child: DropdownButtonHideUnderline(
+                        child: ButtonTheme(
+                          alignedDropdown: true,
+                          child: new DropdownButton<String>(
+                            value: genderSelected,
+                            items: _genderitems.map((lable) {
+                              return new DropdownMenuItem<String>(
+                                value: lable,
+                                child: new Text(lable),
+                              );
+                            }).toList(),
+                            hint: Text('Gender'),
+                            onChanged: (value) {
+                              setState(() {
+                                genderSelected = value;
+                                user.gender = genderSelected;
+                                print(user.gender);
+                              });
+                            },
                           ),
                         ),
-
-                    // Container(
-                    //   width: MediaQuery.of(context).size.width - 50,
-                    //   height: 60.0,
-                    //   decoration: BoxDecoration(
-                    //     borderRadius: BorderRadius.circular(10.0),
-                    //     border: Border.all(color: Colors.blueGrey),
-                    //   ),
-                    //   child: DropdownButtonHideUnderline(
-                    //     child: ButtonTheme(
-                    //       alignedDropdown: true,
-                    //       child: new DropdownButton<String>(
-                    //         value: gender,
-                    //         items: _genderitems.map((lable) {
-                    //           return new DropdownMenuItem<String>(
-                    //             value: lable,
-                    //             child: new Text(lable),
-                    //           );
-                    //         }).toList(),
-                    //         hint: Text('Gender'),
-                    //         onChanged: (value) {
-                    //           setState(() {
-                    //             user.gender = value;
-
-                    //             print(user.gender);
-                    //           });
-                    //         },
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
-
+                      ),
+                    ),
                     SizedBox(height: 20.0),
-                    Container(width: MediaQuery.of(context).size.width - 100,
+                    Container(
+                      width: MediaQuery.of(context).size.width - 100,
                       height: 60.0,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.0),
                         border: Border.all(color: Colors.blueGrey),
                       ),
-                          child: DropdownButtonHideUnderline(
-                            child: ButtonTheme(
-                              alignedDropdown: true,
-                              child: new DropdownButton<String>(
-                                value: villageSelected,
-                                items: villageGroupitems.map((lable) {
-                                  return new DropdownMenuItem<String>(
-                                    value: lable,
-                                    child: new Text(lable),
-                                  );
-                                }).toList(),
-                                hint: Text('Village Group'),
-                                onChanged: (value) {
-                                  setState(() {
-                                    villageSelected = value;
-                                    user.villageGroup = villageSelected;
-                                    print(user.villageGroup);
-                                  });
-                                },
-                              ),
-                            ),
+                      child: DropdownButtonHideUnderline(
+                        child: ButtonTheme(
+                          alignedDropdown: true,
+                          child: new DropdownButton<String>(
+                            value: villageSelected,
+                            items: villageGroupitems.map((lable) {
+                              return new DropdownMenuItem<String>(
+                                value: lable,
+                                child: new Text(lable),
+                              );
+                            }).toList(),
+                            hint: Text('Village Group'),
+                            onChanged: (value) {
+                              setState(() {
+                                villageSelected = value;
+                                user.villageGroup = villageSelected;
+                                print(user.villageGroup);
+                              });
+                            },
                           ),
                         ),
-
+                      ),
+                    ),
                     SizedBox(height: 20.0),
-                   Container(width: MediaQuery.of(context).size.width - 100,
+                    Container(
+                      width: MediaQuery.of(context).size.width - 100,
                       height: 60.0,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.0),
                         border: Border.all(color: Colors.blueGrey),
                       ),
-                          child: DropdownButtonHideUnderline(
-                            child: ButtonTheme(
-                              alignedDropdown: true,
-                              child: new DropdownButton<String>(
-                                value: familySelected,
-                                items: familygrp.map((lable) {
-                                  return new DropdownMenuItem<String>(
-                                    value: lable,
-                                    child: new Text(lable),
-                                  );
-                                }).toList(),
-                                hint: Text('Family Group'),
-                                onChanged: (value) {
-                                  setState(() {
-                                    familySelected = value;
-                                    user.familyGroup = familySelected;
-                                    print(user.familyGroup);
-                                  });
-                                },
-                              ),
-                            ),
+                      child: DropdownButtonHideUnderline(
+                        child: ButtonTheme(
+                          alignedDropdown: true,
+                          child: new DropdownButton<String>(
+                            value: familySelected,
+                            items: familygrp.map((lable) {
+                              return new DropdownMenuItem<String>(
+                                value: lable,
+                                child: new Text(lable),
+                              );
+                            }).toList(),
+                            hint: Text('Family Group'),
+                            onChanged: (value) {
+                              setState(() {
+                                familySelected = value;
+                                user.familyGroup = familySelected;
+                                print(user.familyGroup);
+                              });
+                            },
                           ),
                         ),
+                      ),
+                    ),
                     SizedBox(height: 50.0),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -360,7 +332,7 @@ class _CreateFundsState extends State<CreateFunds> {
                     GestureDetector(
                       onTap: validateAndSubmit,
                       child: Container(
-                          height: 40.0,
+                          height: 60.0,
                           child: Material(
                             borderRadius: BorderRadius.circular(20.0),
                             shadowColor: Colors.greenAccent,

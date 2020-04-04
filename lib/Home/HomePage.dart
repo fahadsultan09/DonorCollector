@@ -19,15 +19,14 @@ class _HomeState extends State<Home> {
   List<DocumentSnapshot> balancedocuments;
 
   Future<void> getBalance() async {
-    
     final QuerySnapshot result =
         await Firestore.instance.collection("Users2").getDocuments();
     balancedocuments = result.documents.toList();
     balancedocuments.forEach((data) {
       if (data["Amount"] is int) {
-       setState(() {
+        setState(() {
           amount = amount + data["Amount"];
-       });
+        });
       }
     });
   }
@@ -37,7 +36,6 @@ class _HomeState extends State<Home> {
     super.initState();
     getBalance();
   }
-  
 
   List<DocumentSnapshot> documents;
   @override
@@ -253,9 +251,10 @@ class _HomeState extends State<Home> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text(
-                            responsibilityUser["Amount"].toString() !=
-                                    null ? "Rs.  "+ responsibilityUser["Amount"].toString(): ""
-                                ,
+                            responsibilityUser["Amount"].toString() != null
+                                ? "Rs.  " +
+                                    responsibilityUser["Amount"].toString()
+                                : "",
                             style: TextStyle(
                               fontSize: 15,
                               color: Colors.green,

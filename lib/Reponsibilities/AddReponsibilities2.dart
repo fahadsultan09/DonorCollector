@@ -4,7 +4,6 @@ import 'package:collector/Home/HomePage.dart';
 import 'package:collector/Reponsibilities/utils.dart';
 import 'package:flutter/material.dart';
 
-
 class AddReponsibilities2 extends StatefulWidget {
   RecieverClass reciever;
 
@@ -15,9 +14,7 @@ class AddReponsibilities2 extends StatefulWidget {
 }
 
 class _AddReponsibilities2State extends State<AddReponsibilities2> {
-
   _AddReponsibilities2State(this.reciever);
-  
 
   List<String> responsibilityType = ["Stationary Type", "Business Support"];
   String responsibilitySelected;
@@ -112,7 +109,6 @@ class _AddReponsibilities2State extends State<AddReponsibilities2> {
                         widget.reciever.dueDay = int.parse(value);
                       },
                       decoration: InputDecoration(
-
                           labelText: 'DUE DAY (1-31)',
                           labelStyle: TextStyle(
                               fontFamily: 'Montserrat',
@@ -122,37 +118,7 @@ class _AddReponsibilities2State extends State<AddReponsibilities2> {
                               borderSide: BorderSide(color: Colors.green))),
                     ),
                     SizedBox(height: 10.0),
-                    // Container(
-                    //   width: MediaQuery.of(context).size.width - 50,
-                    //   height: 60.0,
-                    //   decoration: BoxDecoration(
-                    //     border: Border.all(color: Colors.blueGrey),
-                    //   ),
-                    //   child: DropdownButtonHideUnderline(
-                    //     child: ButtonTheme(
-                    //       alignedDropdown: true,
-                    //       child: new DropdownButton<String>(
-                    //         value: gender,
-                    //         items: _items.map((lable) {
-                    //           return new DropdownMenuItem<String>(
-                    //             value: lable,
-                    //             child: new Text(lable),
-                    //           );
-                    //         }).toList(),
-                    //         hint: Text('Gender'),
-                    //         onChanged: (value) {
-                    //           setState(() {
-                    //             if (reciever.gender == "") {
-                    //               reciever.gender = gender;
-                    //             } else {}
-                    //             reciever.gender = value;
-                    //           });
-                    //         },
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
-                    SizedBox(height: 10.0),
+                    
                     TextFormField(
                       keyboardType: TextInputType.number,
                       validator: (input) => input.isEmpty
@@ -172,70 +138,37 @@ class _AddReponsibilities2State extends State<AddReponsibilities2> {
                     ),
                     SizedBox(height: 10.0),
                     SizedBox(height: 20.0),
-                    // Container(
-                    //   width: MediaQuery.of(context).size.width - 50,
-                    //   height: 60.0,
-                    //   decoration: BoxDecoration(
-                    //     borderRadius: BorderRadius.circular(20.0),
-                    //     border: Border.all(color: Colors.blueGrey),
-                    //   ),
-                    //   child: DropdownButtonHideUnderline(
-                    //     child: ButtonTheme(
-                    //       alignedDropdown: true,
-                    //       child: new DropdownButton<String>(
-                    //         items: responsibilityType.map((lable) {
-                    //           return new DropdownMenuItem<String>(
-                    //             value: lable,
-                    //             child: new Text(lable),
-                    //           );
-                    //         }).toList(),
-                    //         hint: Text('RESPONSIBILITY TYPE'),
-                    //         onChanged: (value) {
-                    //           setState(() {
-                    //             widget.reciever.responsibiltyType = value;
-                    //             Toast.show(
-                    //                 widget.reciever.responsibiltyType +
-                    //                     " selected",
-                    //                 context,
-                    //                 duration: Toast.LENGTH_LONG,
-                    //                 gravity: Toast.BOTTOM,
-                    //                 backgroundColor: Colors.blue);
-                    //           });
-                    //         },
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
-                     Container(width: MediaQuery.of(context).size.width - 100,
+                    Container(
+                      width: MediaQuery.of(context).size.width - 100,
                       height: 60.0,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.0),
                         border: Border.all(color: Colors.blueGrey),
                       ),
-                          child: DropdownButtonHideUnderline(
-                            child: ButtonTheme(
-                              alignedDropdown: true,
-                              child: new DropdownButton<String>(
-                                value: responsibilitySelected,
-                                items: responsibilityType.map((lable) {
-                                  return new DropdownMenuItem<String>(
-                                    value: lable,
-                                    child: new Text(lable),
-                                  );
-                                }).toList(),
-                                hint: Text('RESPONSIBILITY TYPE'),
-                                onChanged: (value) {
-                                  setState(() {
-                                    
-                                    responsibilitySelected = value;
-                                    reciever.responsibiltyType = responsibilitySelected;
-                                    print(reciever.responsibiltyType);
-                                  });
-                                },
-                              ),
-                            ),
+                      child: DropdownButtonHideUnderline(
+                        child: ButtonTheme(
+                          alignedDropdown: true,
+                          child: new DropdownButton<String>(
+                            value: responsibilitySelected,
+                            items: responsibilityType.map((lable) {
+                              return new DropdownMenuItem<String>(
+                                value: lable,
+                                child: new Text(lable),
+                              );
+                            }).toList(),
+                            hint: Text('RESPONSIBILITY TYPE'),
+                            onChanged: (value) {
+                              setState(() {
+                                responsibilitySelected = value;
+                                reciever.responsibiltyType =
+                                    responsibilitySelected;
+                                print(reciever.responsibiltyType);
+                              });
+                            },
                           ),
                         ),
+                      ),
+                    ),
                     SizedBox(height: 10.0),
                     SizedBox(height: 50.0),
                     GestureDetector(

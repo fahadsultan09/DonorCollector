@@ -247,24 +247,24 @@ class ReponsibilitiesState extends State<Reponsibilities> {
                   ),
                 ),
                 child: ListTile(
-                    dense: true,
-                    title: Text(
-                      "Name: "+user["FullName"],
-                      style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.w800,
-                      ),
-                      textAlign: TextAlign.left,
+                  dense: true,
+                  title: Text(
+                    "Name: " + user["FullName"],
+                    style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w800,
                     ),
-                    trailing: Text(
-                          "Rs ." + user["Amount"].toString(),
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.green,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                    textAlign: TextAlign.left,
+                  ),
+                  trailing: Text(
+                    "Rs ." + user["Amount"].toString(),
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.green,
+                      fontWeight: FontWeight.bold,
                     ),
+                  ),
+                ),
               ),
             ),
           );

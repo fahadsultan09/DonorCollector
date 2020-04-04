@@ -8,15 +8,21 @@ class FundsHistory extends StatefulWidget {
 }
 
 class _FundsHistoryState extends State<FundsHistory> {
-  List<String> month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-  
-  
-  @override
-  void dispose() {
-    
-    super.dispose();
-  }
-  
+  List<String> month = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -84,16 +84,16 @@ class transferAmountState extends State<transferAmount> {
         itemBuilder: (context, index) {
           DocumentSnapshot _donorUser = snapshot.data.documents[index];
 
-          return GestureDetector(
-            onTap: () {},
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.topRight,
-                    end: Alignment.bottomLeft,
-                    colors: [Colors.white70, Colors.blue[900]]),
-                borderRadius: BorderRadius.circular(12.0),
-              ),
+          return Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft,
+                  colors: [Colors.white70, Colors.blue[900]]),
+              borderRadius: BorderRadius.circular(12.0),
+            ),
+            child: GestureDetector(
+              onTap: () {},
               child: Card(
                 semanticContainer: true,
                 elevation: 4,
@@ -113,7 +113,7 @@ class transferAmountState extends State<transferAmount> {
                     textAlign: TextAlign.left,
                   ),
                   subtitle: Text(
-                    "Rs. " + _donorUser["Amount"].toString(),
+                    "Balance " + "Rs. " + _donorUser["Amount"].toString(),
                     style: TextStyle(fontSize: 15),
                   ),
                   trailing: FlatButton(
@@ -138,9 +138,15 @@ class transferAmountState extends State<transferAmount> {
                                         MediaQuery.of(context).size.width - 5,
                                     child: TextFormField(
                                       keyboardType: TextInputType.number,
-                                      validator: (input) => input.isEmpty
-                                          ? 'Amount Value cannot be null'
-                                          : null,
+                                      validator: (input) {
+                                        if (input.isEmpty) {
+                                          return 'Amount Value cannot be null';
+                                        } else if (int.parse(input) == 0) {
+                                          return 'Amount Value cannot be 0';
+                                        } else {
+                                          return null;
+                                        }
+                                      },
                                       onChanged: (value) {
                                         inputValue = int.parse(value);
                                       },
@@ -166,88 +172,91 @@ class transferAmountState extends State<transferAmount> {
                                   new FlatButton(
                                     child: new Text('SUBMIT'),
                                     onPressed: () {
-                                      setState(() {
-                                        if (inputValue <=
-                                                _donorUser["Amount"] &&
-                                            inputValue <= amount) {
-                                          amount = amount - inputValue;
-                                          int temp_amount =
-                                              _donorUser["Amount"] - inputValue;
-                                          Firestore.instance
-                                              .collection("Users2")
-                                              .document(_donorUser.documentID)
-                                              .updateData({
-                                            "Amount": temp_amount,
-                                          });
+                                      if (validateAndSave()) {
+                                        setState(() {
+                                          if (inputValue <=
+                                                  _donorUser["Amount"] &&
+                                              inputValue <= amount) {
+                                            amount = amount - inputValue;
+                                            int temp_amount =
+                                                _donorUser["Amount"] -
+                                                    inputValue;
+                                            Firestore.instance
+                                                .collection("Users2")
+                                                .document(_donorUser.documentID)
+                                                .updateData({
+                                              "Amount": temp_amount,
+                                            });
 
-                                          Firestore.instance
-                                              .collection("Pipeline")
-                                              .document(widget
-                                                  ._recieveruser.documentID)
-                                              .updateData({
-                                            "Amount": amount,
-                                          });
-                                          Firestore.instance
-                                              .collection("MyZakat")
-                                              .document(_donorUser.documentID)
-                                              .setData({"1": 1});
-                                          Firestore.instance
-                                              .collection("MyZakat")
-                                              .document(_donorUser.documentID)
-                                              .collection("MyPayments")
-                                              .document()
-                                              .setData({
-                                            "timestamp": DateTime.now(),
-                                            "Amount": inputValue,
-                                            "Purpose": widget._recieveruser[
-                                                "ResponsibiltyType"],
-                                            "Name": widget
-                                                ._recieveruser["FullName"],
-                                            "PaymentDate": DateTime.now()
-                                                .toString()
-                                                .substring(0, 10),
-                                          });
-                                          Firestore.instance
-                                              .collection("DonorZakat")
-                                              .document()
-                                              .setData({
-                                            "DonorName":
-                                                _donorUser["Full Name"],
-                                            "timestamp": DateTime.now(),
-                                            "Amount": inputValue,
-                                            "Name": widget
-                                                ._recieveruser["FullName"],
-                                            "PaymentDate": DateTime.now()
-                                                .toString()
-                                                .substring(0, 10),
-                                            "fcm": _donorUser["token"],
-                                            "ResponsibiltyType":
-                                                widget._recieveruser[
-                                                    "ResponsibiltyType"],
-                                          });
+                                            Firestore.instance
+                                                .collection("Pipeline")
+                                                .document(widget
+                                                    ._recieveruser.documentID)
+                                                .updateData({
+                                              "Amount": amount,
+                                            });
+                                            Firestore.instance
+                                                .collection("MyZakat")
+                                                .document(_donorUser.documentID)
+                                                .setData({"1": 1});
+                                            Firestore.instance
+                                                .collection("MyZakat")
+                                                .document(_donorUser.documentID)
+                                                .collection("MyPayments")
+                                                .document()
+                                                .setData({
+                                              "timestamp": DateTime.now(),
+                                              "Amount": inputValue,
+                                              "Purpose": widget._recieveruser[
+                                                  "ResponsibiltyType"],
+                                              "Name": widget
+                                                  ._recieveruser["FullName"],
+                                              "PaymentDate": DateTime.now()
+                                                  .toString()
+                                                  .substring(0, 10),
+                                            });
+                                            Firestore.instance
+                                                .collection("DonorZakat")
+                                                .document()
+                                                .setData({
+                                              "DonorName":
+                                                  _donorUser["Full Name"],
+                                              "timestamp": DateTime.now(),
+                                              "Amount": inputValue,
+                                              "Name": widget
+                                                  ._recieveruser["FullName"],
+                                              "PaymentDate": DateTime.now()
+                                                  .toString()
+                                                  .substring(0, 10),
+                                              "fcm": _donorUser["token"],
+                                              "ResponsibiltyType":
+                                                  widget._recieveruser[
+                                                      "ResponsibiltyType"],
+                                            });
 
-                                          Navigator.of(context)
-                                              .pushAndRemoveUntil(
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          Home()),
-                                                  (Route<dynamic> route) =>
-                                                      false);
-                                        } else {
-                                          Navigator.of(context).pop();
-                                        }
-                                        if (amount <= 0) {
-                                          Firestore.instance
-                                              .collection("Pipeline")
-                                              .document(widget
-                                                  ._recieveruser.documentID)
-                                              .delete();
-                                          Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      Home()));
-                                        }
-                                      });
+                                            Navigator.of(context)
+                                                .pushAndRemoveUntil(
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            Home()),
+                                                    (Route<dynamic> route) =>
+                                                        false);
+                                          } else {
+                                            Navigator.of(context).pop();
+                                          }
+                                          if (amount <= 0) {
+                                            Firestore.instance
+                                                .collection("Pipeline")
+                                                .document(widget
+                                                    ._recieveruser.documentID)
+                                                .delete();
+                                            Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        Home()));
+                                          }
+                                        });
+                                      }
                                     },
                                   )
                                 ])
