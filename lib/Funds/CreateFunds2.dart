@@ -41,6 +41,8 @@ class _CreateFunds2State extends State<CreateFunds2> {
             .createUserWithEmailAndPassword(
                 email: widget.user.email, password: widget.user.password));
         if (_user != null) {
+
+          Center(child: CircularProgressIndicator(backgroundColor: Colors.blue,),);
           print("SUCCESS");
           widget.user.uid = _user.user.uid;
           _firestore

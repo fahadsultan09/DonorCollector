@@ -44,7 +44,7 @@ class transferAmountState extends State<transferAmount> {
             gradient: LinearGradient(
                 begin: Alignment.topRight,
                 end: Alignment.bottomLeft,
-                colors: [Colors.orange, Colors.red])),
+                colors: [Colors.red[300], Colors.red[900]])),
         child: Center(
           child: Text(
             'AMOUNT REQUIRED Rs. ' + amount.toString(),
@@ -125,7 +125,8 @@ class transferAmountState extends State<transferAmount> {
                           context: context,
                           builder: (context) {
                             return SimpleDialog(
-                              title: Text('Amount Payment'),
+                              
+                              title: Text('Payment'),
                               children: <Widget>[
                                 Form(
                                   key: _formKey,
@@ -133,7 +134,7 @@ class transferAmountState extends State<transferAmount> {
                                     padding: EdgeInsets.only(
                                         right: 10.0, left: 10.0),
                                     height:
-                                        MediaQuery.of(context).size.height / 2,
+                                        150.0,
                                     width:
                                         MediaQuery.of(context).size.width - 5,
                                     child: TextFormField(
