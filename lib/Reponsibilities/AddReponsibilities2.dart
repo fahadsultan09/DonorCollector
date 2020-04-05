@@ -16,7 +16,10 @@ class AddReponsibilities2 extends StatefulWidget {
 class _AddReponsibilities2State extends State<AddReponsibilities2> {
   _AddReponsibilities2State(this.reciever);
 
-  List<String> responsibilityType = ["Stationary Type", "Business Support"];
+  List<String> responsibilityType = [
+    "Stationary Type", "Business Support",
+    "School Fees", "Grocery" , "Marriage" , "Other"
+  ];
   String responsibilitySelected;
   RecieverClass reciever = new RecieverClass();
   final _formKey = new GlobalKey<FormState>();
